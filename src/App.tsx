@@ -17,6 +17,7 @@ import ShopDetail from "./pages/ShopDetail";
 import VendorDashboard from "./pages/VendorDashboard";
 import DeliveryDashboard from "./pages/DeliveryDashboard";
 import CheckoutPage from "./pages/CheckoutPage";
+import OrderSuccessPage from "./pages/OrderSuccessPage";
 import NotFound from "./pages/NotFound";
 import ContextualNotificationSystem from "./components/ContextualNotificationSystem";
 
@@ -40,6 +41,7 @@ const App = () => (
                 <Route path="/customer" element={<CustomerApp />} />
                 <Route path="/shop/:id" element={<ShopDetail />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/order-success" element={<OrderSuccessPage />} />
                 <Route path="/vendor" element={<VendorDashboard />} />
                 <Route path="/delivery" element={<DeliveryDashboard />} />
                 <Route path="*" element={<NotFound />} />

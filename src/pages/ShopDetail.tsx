@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link, useParams } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { getProductsByStore } from "@/data/products";
 import { getStoreById } from "@/data/stores";
 import CartModal from "@/components/CartModal";
@@ -14,6 +15,7 @@ import heroImage from "@/assets/hero-grocery-store.jpg";
 import logoImage from "@/assets/logo.png";
 
 const ShopDetail = () => {
+  const { t } = useLanguage();
   const { id } = useParams();
   const { addToCart, removeFromCart, getItemQuantity, getItemCount } = useCart();
 
@@ -47,7 +49,7 @@ const ShopDetail = () => {
               <Link to="/customer">
                 <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900 text-xs">
                   <ArrowLeft className="w-3 h-3 mr-1" />
-                  Back to Stores
+                  {t('shopDetail.backToStores')}
                 </Button>
               </Link>
               <div className="flex items-center">

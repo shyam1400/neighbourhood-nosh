@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { products, getProductsByCategory } from "@/data/products";
 import { stores, getStoreById, calculateDistance } from "@/data/stores";
 import MapView from "@/components/MapView";
@@ -19,6 +20,7 @@ import heroImage from "@/assets/hero-grocery-store.jpg";
 import logoImage from "@/assets/logo.png";
 
 const CustomerApp = () => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [activeTab, setActiveTab] = useState("stores");

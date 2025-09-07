@@ -101,8 +101,8 @@ const NotificationSimulator: React.FC = () => {
       });
     };
 
-    // Show first notification after 30 seconds
-    const initialTimeout = setTimeout(showRandomNotification, 30000);
+    // Show first notification after 1 minute
+    const initialTimeout = setTimeout(showRandomNotification, 60000);
 
     // Then show notifications every 60 seconds
     const interval = setInterval(showRandomNotification, 60000);

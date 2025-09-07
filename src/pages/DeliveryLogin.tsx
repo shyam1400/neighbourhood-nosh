@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const DeliveryLogin = () => {
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState("login");
   const [loginData, setLoginData] = useState({
@@ -47,7 +49,7 @@ const DeliveryLogin = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-4">
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to Home</span>
+            <span>{t('deliveryLogin.backToHome')}</span>
           </Link>
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="w-10 h-10 bg-gradient-to-r from-cyan-600 to-teal-600 rounded-lg flex items-center justify-center">
@@ -55,16 +57,16 @@ const DeliveryLogin = () => {
             </div>
             <span className="text-2xl font-bold text-gray-900">Kiro</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Delivery Partner Portal</h1>
-          <p className="text-gray-600">Sign in to start delivering orders</p>
+          <h1 className="text-3xl font-bold text-gray-900">{t('deliveryLogin.title')}</h1>
+          <p className="text-gray-600">{t('deliveryLogin.subtitle')}</p>
         </div>
 
         <Card className="shadow-xl">
           <CardContent className="p-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                <TabsTrigger value="login">{t('deliveryLogin.login')}</TabsTrigger>
+                <TabsTrigger value="signup">{t('deliveryLogin.signup')}</TabsTrigger>
               </TabsList>
 
               {/* Login Tab */}

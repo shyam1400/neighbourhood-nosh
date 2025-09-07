@@ -171,7 +171,7 @@ const ContextualNotificationSystem: React.FC = () => {
       toast({
         title: randomNotification.title,
         description: randomNotification.description,
-        variant: randomNotification.type,
+        variant: randomNotification.type === 'error' ? 'destructive' : randomNotification.type === 'success' ? 'success' : randomNotification.type === 'warning' ? 'warning' : randomNotification.type === 'info' ? 'info' : 'default',
         duration: 5000,
       });
     };
@@ -179,8 +179,8 @@ const ContextualNotificationSystem: React.FC = () => {
     // Show notification immediately
     showNotification();
 
-    // Set up interval for every 30 seconds
-    const interval = setInterval(showNotification, 30000);
+    // Set up interval for every 1 minute
+    const interval = setInterval(showNotification, 60000);
 
     return () => clearInterval(interval);
   }, [location.pathname, t, toast]);

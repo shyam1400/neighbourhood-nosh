@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
-import { ArrowLeft, Bell, Package, Users, TrendingUp, Clock, CheckCircle, XCircle, AlertCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
-import { useOrder } from "@/contexts/OrderContext";
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, Bell, Package, Users, TrendingUp, Clock, CheckCircle, XCircle, AlertCircle, Star, ShoppingCart, Boxes } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
+import { toast } from '../components/ui/use-toast';
+import { InventoryManager } from '../components/InventoryManager';
+import { useOrder } from '../contexts/OrderContext';
 import NotificationSystem from "@/components/NotificationSystem";
 import UserProfile from "@/components/UserProfile";
 import LocationSelector from "@/components/LocationSelector";
@@ -13,6 +14,7 @@ import LogoutDialog from "@/components/LogoutDialog";
 const VendorDashboard = () => {
   const { getOrdersByStore, updateOrderStatus } = useOrder();
   const [orders, setOrders] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<'orders' | 'inventory'>('orders');
   const [currentLocation, setCurrentLocation] = useState({
     id: '1',
     name: 'Koramangala',
@@ -173,9 +175,30 @@ const VendorDashboard = () => {
           </Card>
         </div>
 
-        {/* Orders Section */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Recent Orders</h2>
+        {/* Navigation Tabs */}
+        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-8">
+          <Button
+            variant={activeTab === 'orders' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab('orders')}
+            className="flex-1 flex items-center justify-center gap-2"
+          >
+            <ShoppingCart className="w-4 h-4" />
+            Orders Management
+          </Button>
+          <Button
+            variant={activeTab === 'inventory' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab('inventory')}
+            className="flex-1 flex items-center justify-center gap-2"
+          >
+            <Boxes className="w-4 h-4" />
+            Inventory Management
+          </Button>
+        </div>
+
+        {/* Content based on active tab */}
+        {activeTab === 'orders' ? (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-gray-900">Recent Orders</h2>
           <div className="space-y-4">
             {orders.map((order) => (
               <Card key={order.id} className="hover:shadow-lg transition-shadow">
@@ -232,6 +255,9 @@ const VendorDashboard = () => {
             ))}
           </div>
         </div>
+        ) : (
+          <InventoryManager storeId={storeId} />
+        )}
       </div>
 
       {/* Logout Dialog */}

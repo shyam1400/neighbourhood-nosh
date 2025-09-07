@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export type Language = 'en' | 'hi' | 'ta' | 'kn' | 'ml';
 
@@ -242,6 +242,22 @@ const translations = {
     'home.privacy': 'Privacy',
     'home.connectingStores': 'Connecting local stores with customers for a better shopping experience.',
     
+    // Home Page Features
+    'home.freshGroceries': 'Fresh Groceries & Essentials',
+    'home.freshGroceriesDesc': 'Fresh vegetables, daily essentials, and household items from trusted local kirana stores',
+    'home.premiumMeat': 'Premium Meat & Seafood',
+    'home.premiumMeatDesc': 'Quality meat, poultry, and fresh seafood delivered from trusted local butchers and fish markets',
+    'home.supermarketConvenience': 'Supermarket Convenience',
+    'home.supermarketConvenienceDesc': 'Shop from multiple supermarkets and specialty stores all in one place with fast delivery',
+    'home.groceryStores': 'Grocery Stores',
+    'home.butcherShops': 'Butcher Shops',
+    'home.freshDelivery': 'Fresh Delivery',
+    'home.customerRating': 'Customer Rating',
+    'home.addToCart': 'Add to Cart',
+    'home.addToCartDesc': 'Select your favorite groceries and meat products and add them to your cart',
+    'home.freshDeliveryTitle': 'Fresh Delivery',
+    'home.freshDeliverySteps': 'Get your fresh groceries and meat delivered to your doorstep within 15 minutes',
+    
     // Login/Signup
     'auth.login': 'Login',
     'auth.signup': 'Sign Up',
@@ -271,6 +287,118 @@ const translations = {
     'dashboard.pendingOrders': 'Pending Orders',
     'dashboard.acceptedOrders': 'Accepted Orders',
     'dashboard.deliveredOrders': 'Delivered Orders',
+    
+    // StartShopping page
+    'startShopping.title': 'Start Shopping',
+    'startShopping.welcome': 'Welcome to the shopping page!',
+    'startShopping.backToHome': 'Back to Home',
+    
+    // VendorLogin page
+    'vendorLogin.title': 'Store Owner Portal',
+    'vendorLogin.subtitle': 'Manage your store and connect with customers',
+    'vendorLogin.backToHome': 'Back to Home',
+    'vendorLogin.login': 'Login',
+    'vendorLogin.signup': 'Sign Up',
+    'vendorLogin.username': 'Username',
+    'vendorLogin.password': 'Password',
+    'vendorLogin.showPassword': 'Show password',
+    'vendorLogin.hidePassword': 'Hide password',
+    'vendorLogin.loginButton': 'Login to Dashboard',
+    'vendorLogin.storeName': 'Store Name',
+    'vendorLogin.email': 'Email',
+    'vendorLogin.phone': 'Phone Number',
+    'vendorLogin.confirmPassword': 'Confirm Password',
+    'vendorLogin.address': 'Store Address',
+    'vendorLogin.storeType': 'Store Type',
+    'vendorLogin.signupButton': 'Create Store Account',
+    'vendorLogin.selectStoreType': 'Select store type',
+    'vendorLogin.groceryStore': 'Grocery Store',
+    'vendorLogin.butcherShop': 'Butcher Shop',
+    'vendorLogin.supermarket': 'Supermarket',
+    'vendorLogin.pharmacy': 'Pharmacy',
+    'vendorLogin.bakery': 'Bakery',
+    
+    // DeliveryLogin page
+    'deliveryLogin.title': 'Delivery Partner Portal',
+    'deliveryLogin.subtitle': 'Join our delivery network and start earning',
+    'deliveryLogin.backToHome': 'Back to Home',
+    'deliveryLogin.login': 'Login',
+    'deliveryLogin.signup': 'Sign Up',
+    'deliveryLogin.username': 'Username',
+    'deliveryLogin.password': 'Password',
+    'deliveryLogin.loginButton': 'Login to Dashboard',
+    'deliveryLogin.fullName': 'Full Name',
+    'deliveryLogin.email': 'Email',
+    'deliveryLogin.phone': 'Phone Number',
+    'deliveryLogin.confirmPassword': 'Confirm Password',
+    'deliveryLogin.vehicleType': 'Vehicle Type',
+    'deliveryLogin.licenseNumber': 'License Number',
+    'deliveryLogin.signupButton': 'Join as Partner',
+    'deliveryLogin.selectVehicle': 'Select vehicle type',
+    'deliveryLogin.bike': 'Bike',
+    'deliveryLogin.scooter': 'Scooter',
+    'deliveryLogin.bicycle': 'Bicycle',
+    'deliveryLogin.car': 'Car',
+    
+    // CustomerApp page
+    'customerApp.searchPlaceholder': 'Search for stores, products...',
+    'customerApp.location': 'Location',
+    'customerApp.stores': 'Stores',
+    'customerApp.products': 'Products',
+    'customerApp.recipes': 'Recipes',
+    'customerApp.map': 'Map',
+    'customerApp.allCategories': 'All Categories',
+    'customerApp.groceries': 'Groceries',
+    'customerApp.meat': 'Meat & Seafood',
+    'customerApp.dairy': 'Dairy',
+    'customerApp.bakery': 'Bakery',
+    'customerApp.beverages': 'Beverages',
+    'customerApp.snacks': 'Snacks',
+    'customerApp.household': 'Household',
+    'customerApp.personal': 'Personal Care',
+    'customerApp.frozen': 'Frozen',
+    'customerApp.organic': 'Organic',
+    'customerApp.open': 'Open',
+    'customerApp.closed': 'Closed',
+    'customerApp.away': 'away',
+    'customerApp.rating': 'Rating',
+    'customerApp.addToCart': 'Add to Cart',
+    'customerApp.inStock': 'In Stock',
+    'customerApp.outOfStock': 'Out of Stock',
+    'customerApp.noStores': 'No stores found matching your criteria.',
+    'customerApp.noProducts': 'No products found matching your search.',
+    
+    // NotFound page
+    'notFound.title': '404 - Page Not Found',
+    'notFound.message': 'The page you are looking for does not exist.',
+    'notFound.backToHome': 'Back to Home',
+    
+    // Checkout page
+    'checkout.title': 'Checkout',
+    'checkout.backToShopping': 'Back to Shopping',
+    'checkout.emptyCart': 'Your cart is empty',
+    'checkout.emptyCartDesc': 'Add some items to your cart before checking out.',
+    'checkout.continueShopping': 'Continue Shopping',
+    'checkout.deliveryAddress': 'Delivery Address',
+    'checkout.fullAddress': 'Full Address',
+    'checkout.addressPlaceholder': 'Enter your complete delivery address...',
+    'checkout.deliveryNotes': 'Delivery Notes (Optional)',
+    'checkout.notesPlaceholder': 'Any special instructions for delivery...',
+    'checkout.paymentMethod': 'Payment Method',
+    'checkout.cashOnDelivery': 'Cash on Delivery',
+    'checkout.creditCard': 'Credit/Debit Card',
+    'checkout.upiPayment': 'UPI Payment',
+    'checkout.digitalWallet': 'Digital Wallet',
+    'checkout.orderSummary': 'Order Summary',
+    'checkout.stores': 'Stores',
+    'checkout.store': 'Store',
+    'checkout.deliveryTime': 'Delivery Time',
+    'checkout.ordersByStore': 'Orders by Store',
+    'checkout.items': 'Items',
+    'checkout.processingPayment': 'Processing Payment',
+    'checkout.placeOrder': 'Place Order',
+    'checkout.securePayment': 'Secure Payment',
+    'checkout.securePaymentDesc': 'Your payment information is encrypted and secure. We never store your card details.',
     'dashboard.totalRevenue': 'Total Revenue',
     'dashboard.todayRevenue': "Today's Revenue",
     'dashboard.newCustomers': 'New Customers',
@@ -560,6 +688,22 @@ const translations = {
     'home.privacy': 'गोपनीयता',
     'home.connectingStores': 'बेहतर खरीदारी अनुभव के लिए स्थानीय स्टोर को ग्राहकों से जोड़ना।',
     
+    // Home Page Features
+    'home.freshGroceries': 'ताजी सब्जियां और किराना',
+    'home.freshGroceriesDesc': 'विश्वसनीय स्थानीय किराना स्टोर से ताजी सब्जियां, दैनिक आवश्यकताएं और घरेलू सामान',
+    'home.premiumMeat': 'प्रीमियम मांस और समुद्री भोजन',
+    'home.premiumMeatDesc': 'विश्वसनीय स्थानीय कसाई और मछली बाजार से गुणवत्तापूर्ण मांस, मुर्गी और ताजा समुद्री भोजन डिलीवर',
+    'home.supermarketConvenience': 'सुपरमार्केट सुविधा',
+    'home.supermarketConvenienceDesc': 'तेज डिलीवरी के साथ एक ही स्थान पर कई सुपरमार्केट और विशेष स्टोर से खरीदारी करें',
+    'home.groceryStores': 'किराना स्टोर',
+    'home.butcherShops': 'कसाई की दुकानें',
+    'home.freshDelivery': 'ताजी डिलीवरी',
+    'home.customerRating': 'ग्राहक रेटिंग',
+    'home.addToCart': 'कार्ट में जोड़ें',
+    'home.addToCartDesc': 'अपनी पसंदीदा सब्जियां और मांस उत्पाद चुनें और उन्हें अपने कार्ट में जोड़ें',
+    'home.freshDeliveryTitle': 'ताजी डिलीवरी',
+    'home.freshDeliverySteps': '15 मिनट के भीतर अपने दरवाजे पर ताजी सब्जियां और मांस डिलीवर करवाएं',
+    
     // Login/Signup
     'auth.login': 'लॉगिन',
     'auth.signup': 'साइन अप',
@@ -643,6 +787,118 @@ const translations = {
     'action.error': 'त्रुटि',
     'action.warning': 'चेतावनी',
     'action.info': 'जानकारी',
+    
+    // StartShopping page
+    'startShopping.title': 'खरीदारी शुरू करें',
+    'startShopping.welcome': 'खरीदारी पेज में आपका स्वागत है!',
+    'startShopping.backToHome': 'होम पर वापस जाएं',
+    
+    // VendorLogin page
+    'vendorLogin.title': 'स्टोर ओनर पोर्टल',
+    'vendorLogin.subtitle': 'अपने स्टोर का प्रबंधन करें और ग्राहकों से जुड़ें',
+    'vendorLogin.backToHome': 'होम पर वापस जाएं',
+    'vendorLogin.login': 'लॉगिन',
+    'vendorLogin.signup': 'साइन अप',
+    'vendorLogin.username': 'उपयोगकर्ता नाम',
+    'vendorLogin.password': 'पासवर्ड',
+    'vendorLogin.showPassword': 'पासवर्ड दिखाएं',
+    'vendorLogin.hidePassword': 'पासवर्ड छुपाएं',
+    'vendorLogin.loginButton': 'डैशबोर्ड में लॉगिन करें',
+    'vendorLogin.storeName': 'स्टोर का नाम',
+    'vendorLogin.email': 'ईमेल',
+    'vendorLogin.phone': 'फोन नंबर',
+    'vendorLogin.confirmPassword': 'पासवर्ड की पुष्टि करें',
+    'vendorLogin.address': 'स्टोर का पता',
+    'vendorLogin.storeType': 'स्टोर का प्रकार',
+    'vendorLogin.signupButton': 'स्टोर अकाउंट बनाएं',
+    'vendorLogin.selectStoreType': 'स्टोर का प्रकार चुनें',
+    'vendorLogin.groceryStore': 'किराना स्टोर',
+    'vendorLogin.butcherShop': 'कसाई की दुकान',
+    'vendorLogin.supermarket': 'सुपरमार्केट',
+    'vendorLogin.pharmacy': 'फार्मेसी',
+    'vendorLogin.bakery': 'बेकरी',
+    
+    // DeliveryLogin page
+    'deliveryLogin.title': 'डिलीवरी पार्टनर पोर्टल',
+    'deliveryLogin.subtitle': 'हमारे डिलीवरी नेटवर्क में शामिल हों और कमाना शुरू करें',
+    'deliveryLogin.backToHome': 'होम पर वापस जाएं',
+    'deliveryLogin.login': 'लॉगिन',
+    'deliveryLogin.signup': 'साइन अप',
+    'deliveryLogin.username': 'उपयोगकर्ता नाम',
+    'deliveryLogin.password': 'पासवर्ड',
+    'deliveryLogin.loginButton': 'डैशबोर्ड में लॉगिन करें',
+    'deliveryLogin.fullName': 'पूरा नाम',
+    'deliveryLogin.email': 'ईमेल',
+    'deliveryLogin.phone': 'फोन नंबर',
+    'deliveryLogin.confirmPassword': 'पासवर्ड की पुष्टि करें',
+    'deliveryLogin.vehicleType': 'वाहन का प्रकार',
+    'deliveryLogin.licenseNumber': 'लाइसेंस नंबर',
+    'deliveryLogin.signupButton': 'पार्टनर के रूप में जुड़ें',
+    'deliveryLogin.selectVehicle': 'वाहन का प्रकार चुनें',
+    'deliveryLogin.bike': 'बाइक',
+    'deliveryLogin.scooter': 'स्कूटर',
+    'deliveryLogin.bicycle': 'साइकिल',
+    'deliveryLogin.car': 'कार',
+    
+    // CustomerApp page
+    'customerApp.searchPlaceholder': 'स्टोर, उत्पाद खोजें...',
+    'customerApp.location': 'स्थान',
+    'customerApp.stores': 'स्टोर',
+    'customerApp.products': 'उत्पाद',
+    'customerApp.recipes': 'रेसिपी',
+    'customerApp.map': 'मैप',
+    'customerApp.allCategories': 'सभी श्रेणियां',
+    'customerApp.groceries': 'किराना',
+    'customerApp.meat': 'मांस और समुद्री भोजन',
+    'customerApp.dairy': 'डेयरी',
+    'customerApp.bakery': 'बेकरी',
+    'customerApp.beverages': 'पेय पदार्थ',
+    'customerApp.snacks': 'स्नैक्स',
+    'customerApp.household': 'घरेलू सामान',
+    'customerApp.personal': 'व्यक्तिगत देखभाल',
+    'customerApp.frozen': 'जमे हुए',
+    'customerApp.organic': 'जैविक',
+    'customerApp.open': 'खुला',
+    'customerApp.closed': 'बंद',
+    'customerApp.away': 'दूर',
+    'customerApp.rating': 'रेटिंग',
+    'customerApp.addToCart': 'कार्ट में जोड़ें',
+    'customerApp.inStock': 'स्टॉक में',
+    'customerApp.outOfStock': 'स्टॉक खत्म',
+    'customerApp.noStores': 'आपके मानदंडों से मेल खाने वाले कोई स्टोर नहीं मिले।',
+    'customerApp.noProducts': 'आपकी खोज से मेल खाने वाले कोई उत्पाद नहीं मिले।',
+    
+    // NotFound page
+    'notFound.title': '404 - पेज नहीं मिला',
+    'notFound.message': 'आप जो पेज खोज रहे हैं वह मौजूद नहीं है।',
+    'notFound.backToHome': 'होम पर वापस जाएं',
+    
+    // Checkout page
+    'checkout.title': 'चेकआउट',
+    'checkout.backToShopping': 'खरीदारी पर वापस जाएं',
+    'checkout.emptyCart': 'आपका कार्ट खाली है',
+    'checkout.emptyCartDesc': 'चेकआउट करने से पहले अपने कार्ट में कुछ आइटम जोड़ें।',
+    'checkout.continueShopping': 'खरीदारी जारी रखें',
+    'checkout.deliveryAddress': 'डिलीवरी पता',
+    'checkout.fullAddress': 'पूरा पता',
+    'checkout.addressPlaceholder': 'अपना पूरा डिलीवरी पता दर्ज करें...',
+    'checkout.deliveryNotes': 'डिलीवरी नोट्स (वैकल्पिक)',
+    'checkout.notesPlaceholder': 'डिलीवरी के लिए कोई विशेष निर्देश...',
+    'checkout.paymentMethod': 'भुगतान विधि',
+    'checkout.cashOnDelivery': 'कैश ऑन डिलीवरी',
+    'checkout.creditCard': 'क्रेडिट/डेबिट कार्ड',
+    'checkout.upiPayment': 'UPI भुगतान',
+    'checkout.digitalWallet': 'डिजिटल वॉलेट',
+    'checkout.orderSummary': 'ऑर्डर सारांश',
+    'checkout.stores': 'स्टोर',
+    'checkout.store': 'स्टोर',
+    'checkout.deliveryTime': 'डिलीवरी समय',
+    'checkout.ordersByStore': 'स्टोर के अनुसार ऑर्डर',
+    'checkout.items': 'आइटम',
+    'checkout.processingPayment': 'भुगतान प्रोसेसिंग',
+    'checkout.placeOrder': 'ऑर्डर दें',
+    'checkout.securePayment': 'सुरक्षित भुगतान',
+    'checkout.securePaymentDesc': 'आपकी भुगतान जानकारी एन्क्रिप्टेड और सुरक्षित है। हम कभी भी आपके कार्ड की जानकारी स्टोर नहीं करते।',
   },
   
   ta: {
@@ -1354,7 +1610,16 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>(() => {
+    // Load language from localStorage on initialization
+    const savedLanguage = localStorage.getItem('selectedLanguage') as Language;
+    return savedLanguage || 'en';
+  });
+
+  // Save language to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('selectedLanguage', language);
+  }, [language]);
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations[typeof language]] || key;

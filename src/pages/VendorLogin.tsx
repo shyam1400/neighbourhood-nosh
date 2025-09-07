@@ -6,8 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
 import { Package } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const VendorLogin = () => {
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState({
     username: "",
@@ -47,7 +49,7 @@ const VendorLogin = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-4">
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to Home</span>
+            <span>{t('vendorLogin.backToHome')}</span>
           </Link>
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="w-10 h-10 bg-gradient-to-r from-teal-600 to-purple-600 rounded-lg flex items-center justify-center">
@@ -55,28 +57,28 @@ const VendorLogin = () => {
             </div>
             <span className="text-2xl font-bold text-gray-900">Kiro</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Store Owner Login</h1>
-          <p className="text-gray-600">Connect with your local stores in Bangalore. Get fresh groceries, daily essentials, and more delivered to your doorstep.</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('vendorLogin.title')}</h1>
+          <p className="text-gray-600">{t('vendorLogin.subtitle')}</p>
         </div>
 
         <Card className="shadow-xl">
           <CardContent className="p-8">
             <Tabs defaultValue="login" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="signup">Store Owner Sign Up</TabsTrigger>
+                <TabsTrigger value="login">{t('vendorLogin.login')}</TabsTrigger>
+                <TabsTrigger value="signup">{t('vendorLogin.signup')}</TabsTrigger>
               </TabsList>
 
               {/* Login Tab */}
               <TabsContent value="login" className="space-y-6">
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Email</label>
+                    <label className="text-sm font-medium text-gray-700">{t('vendorLogin.email')}</label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                       <Input
                         type="text"
-                        placeholder="Email"
+                        placeholder={t('vendorLogin.email')}
                         value={loginData.username}
                         onChange={(e) => setLoginData({...loginData, username: e.target.value})}
                         className="pl-10"
@@ -86,12 +88,12 @@ const VendorLogin = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Password</label>
+                    <label className="text-sm font-medium text-gray-700">{t('vendorLogin.password')}</label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                       <Input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Password"
+                        placeholder={t('vendorLogin.password')}
                         value={loginData.password}
                         onChange={(e) => setLoginData({...loginData, password: e.target.value})}
                         className="pl-10 pr-10"

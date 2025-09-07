@@ -10,11 +10,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { useCart, StoreCart } from '@/contexts/CartContext';
 import { useOrder } from '@/contexts/OrderContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { getStoreById } from '@/data/stores';
 import DeliveryOptions, { DeliveryOption } from '@/components/DeliveryOptions';
+import { getRandomDeliveryPerson } from '@/components/OrderSuccessModal';
 
 const CheckoutPage: React.FC = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { state: cartState, clearCart, getStoreCarts } = useCart();
   const { createOrder } = useOrder();
@@ -66,7 +69,7 @@ const CheckoutPage: React.FC = () => {
           return createOrder({
             storeId: storeCart.storeId,
             items: storeCart.items,
-            totalAmount: storeCart.total,
+            totalAmount: storeCart.total + storeCart.deliveryFee,
             deliveryAddress,
             paymentMethod,
             notes: `${notes} (Multi-store order)`,
@@ -76,17 +79,25 @@ const CheckoutPage: React.FC = () => {
         });
         
         const orders = await Promise.all(orderPromises);
+        const deliveryPerson = getRandomDeliveryPerson();
+        
+        // Prepare success page data
+        const successData = {
+          orderId: orders[0].id,
+          storeCarts: storeCarts,
+          totalAmount: total,
+          deliveryAddress,
+          paymentMethod,
+          deliveryPerson,
+          estimatedDeliveryTime: deliveryPerson.estimatedTime,
+          isMultiStore: true
+        };
         
         // Clear cart
         clearCart();
         
-        toast({
-          title: "Multi-Store Order Placed Successfully!",
-          description: `Your orders from ${storeCarts.length} stores have been placed and will be delivered soon.`,
-        });
-        
-        // Navigate to success page or back to home
-        navigate('/customer');
+        // Navigate to success page with order data
+        navigate('/order-success', { state: { orderData: successData } });
       } else if (storeCarts.length === 1) {
         // Single store order
         const storeCart = storeCarts[0];
@@ -100,17 +111,26 @@ const CheckoutPage: React.FC = () => {
           customerName: 'Current User',
           storeName: storeCart.storeName
         });
+        
+        const deliveryPerson = getRandomDeliveryPerson();
+        
+        // Prepare success page data
+        const successData = {
+          orderId: order.id,
+          storeCarts: [storeCart],
+          totalAmount: storeCart.total,
+          deliveryAddress,
+          paymentMethod,
+          deliveryPerson,
+          estimatedDeliveryTime: deliveryPerson.estimatedTime,
+          isMultiStore: false
+        };
 
         // Clear cart
         clearCart();
 
-        toast({
-          title: "Order Placed Successfully!",
-          description: `Your order #${order.id} has been placed and will be delivered in ${order.deliveryTime}`,
-        });
-
-        // Navigate to success page or back to home
-        navigate('/customer');
+        // Navigate to success page with order data
+        navigate('/order-success', { state: { orderData: successData } });
       }
     } catch (error) {
       toast({
@@ -129,10 +149,10 @@ const CheckoutPage: React.FC = () => {
         <Card className="max-w-md mx-auto">
           <CardContent className="p-8 text-center">
             <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Your cart is empty</h2>
-            <p className="text-gray-600 mb-6">Add some items to your cart before checking out.</p>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">{t('checkout.emptyCart')}</h2>
+            <p className="text-gray-600 mb-6">{t('checkout.emptyCartDesc')}</p>
             <Button onClick={() => navigate('/customer')} className="w-full">
-              Continue Shopping
+              {t('checkout.continueShopping')}
             </Button>
           </CardContent>
         </Card>
@@ -142,14 +162,14 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
+        <div className="max-w-4xl mx-auto p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <Button variant="ghost" onClick={() => navigate('/customer')}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Shopping
+            {t('checkout.backToShopping')}
           </Button>
-          <h1 className="text-2xl font-bold">Checkout</h1>
+          <h1 className="text-2xl font-bold">{t('checkout.title')}</h1>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -172,26 +192,26 @@ const CheckoutPage: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="w-5 h-5" />
-                  Delivery Address
+                  {t('checkout.deliveryAddress')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="address">Full Address</Label>
+                    <Label htmlFor="address">{t('checkout.fullAddress')}</Label>
                     <Textarea
                       id="address"
-                      placeholder="Enter your complete delivery address..."
+                      placeholder={t('checkout.addressPlaceholder')}
                       value={deliveryAddress}
                       onChange={(e) => setDeliveryAddress(e.target.value)}
                       rows={3}
                     />
                   </div>
                   <div>
-                    <Label htmlFor="notes">Delivery Notes (Optional)</Label>
+                    <Label htmlFor="notes">{t('checkout.deliveryNotes')}</Label>
                     <Textarea
                       id="notes"
-                      placeholder="Any special instructions for delivery..."
+                      placeholder={t('checkout.notesPlaceholder')}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       rows={2}
@@ -206,26 +226,26 @@ const CheckoutPage: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CreditCard className="w-5 h-5" />
-                  Payment Method
+                  {t('checkout.paymentMethod')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <RadioGroup value={paymentMethod} onValueChange={(value: any) => setPaymentMethod(value)}>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="cash" id="cash" />
-                    <Label htmlFor="cash">Cash on Delivery</Label>
+                    <Label htmlFor="cash">{t('checkout.cashOnDelivery')}</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="card" id="card" />
-                    <Label htmlFor="card">Credit/Debit Card</Label>
+                    <Label htmlFor="card">{t('checkout.creditCard')}</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="upi" id="upi" />
-                    <Label htmlFor="upi">UPI Payment</Label>
+                    <Label htmlFor="upi">{t('checkout.upiPayment')}</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="wallet" id="wallet" />
-                    <Label htmlFor="wallet">Digital Wallet</Label>
+                    <Label htmlFor="wallet">{t('checkout.digitalWallet')}</Label>
                   </div>
                 </RadioGroup>
 
@@ -282,7 +302,7 @@ const CheckoutPage: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Package className="w-5 h-5" />
-                  Order Summary
+                  {t('checkout.orderSummary')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -290,7 +310,7 @@ const CheckoutPage: React.FC = () => {
                   {isMultiStore ? (
                     <>
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Stores:</span>
+                        <span className="text-sm text-gray-600">{t('checkout.stores')}:</span>
                         <span className="font-medium">{storeCarts.length} stores</span>
                       </div>
                       <div className="flex justify-between">
@@ -302,7 +322,7 @@ const CheckoutPage: React.FC = () => {
                       </div>
                       
                       <div className="border-t pt-4">
-                        <h4 className="font-medium mb-2">Orders by Store</h4>
+                        <h4 className="font-medium mb-2">{t('checkout.ordersByStore')}</h4>
                         <div className="space-y-3 max-h-40 overflow-y-auto">
                           {storeCarts.map((storeCart) => (
                             <div key={storeCart.storeId} className="border rounded-lg p-3">
@@ -319,7 +339,7 @@ const CheckoutPage: React.FC = () => {
                                 ))}
                               </div>
                               <div className="flex justify-between text-sm font-medium mt-2 pt-2 border-t">
-                                <span>Subtotal:</span>
+                                <span>{t('common.subtotal')}:</span>
                                 <span>₹{storeCart.subtotal}</span>
                               </div>
                             </div>
@@ -345,7 +365,7 @@ const CheckoutPage: React.FC = () => {
                   ) : (
                     <>
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Store:</span>
+                        <span className="text-sm text-gray-600">{t('checkout.store')}:</span>
                         <span className="font-medium">{storeCarts[0]?.storeName || 'Store'}</span>
                       </div>
                       <div className="flex justify-between">
@@ -357,7 +377,7 @@ const CheckoutPage: React.FC = () => {
                       </div>
                       
                       <div className="border-t pt-4">
-                        <h4 className="font-medium mb-2">Items ({cartState.itemCount})</h4>
+                        <h4 className="font-medium mb-2">{t('checkout.items')} ({cartState.itemCount})</h4>
                         <div className="space-y-2 max-h-40 overflow-y-auto">
                           {cartState.items.map((item) => (
                             <div key={item.product.id} className="flex justify-between text-sm">
@@ -375,7 +395,7 @@ const CheckoutPage: React.FC = () => {
                         </div>
                         <div className="flex justify-between">
                           <span>Delivery Fee:</span>
-                          <span className="text-green-600">FREE</span>
+                          <span className="text-green-600">{t('common.free')}</span>
                         </div>
                         <div className="flex justify-between font-bold text-lg border-t pt-2">
                           <span>Total:</span>
@@ -397,12 +417,12 @@ const CheckoutPage: React.FC = () => {
               {isProcessing ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Processing Payment...
+                  {t('checkout.processingPayment')}...
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5" />
-                  Place Order - ₹{total}
+                  {t('checkout.placeOrder')} - ₹{total}
                 </div>
               )}
             </Button>
@@ -413,18 +433,18 @@ const CheckoutPage: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
                   <div>
-                    <h4 className="font-medium text-green-900">Secure Payment</h4>
+                    <h4 className="font-medium text-green-900">{t('checkout.securePayment')}</h4>
                     <p className="text-sm text-green-700">
-                      Your payment information is encrypted and secure. We never store your card details.
+                      {t('checkout.securePaymentDesc')}
                     </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
           </div>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
