@@ -8,10 +8,10 @@ interface CategoryGridProps {
 const categories = [
   { id: "groceries", name: "Groceries", icon: ShoppingCart, color: "bg-gradient-primary" },
   { id: "fruits", name: "Fresh Fruits", icon: Apple, color: "bg-gradient-secondary" },
-  { id: "dairy", name: "Dairy & Eggs", icon: Milk, color: "bg-gradient-trusted" },
+  { id: "dairy", name: "Dairy & Eggs", icon: Milk, color: "bg-gradient-accent" },
   { id: "packaged", name: "Packaged Foods", icon: Package, color: "bg-gradient-primary" },
   { id: "essentials", name: "Daily Essentials", icon: Zap, color: "bg-gradient-secondary" },
-  { id: "personal", name: "Personal Care", icon: Heart, color: "bg-gradient-trusted" },
+  { id: "personal", name: "Personal Care", icon: Heart, color: "bg-gradient-accent" },
 ];
 
 export function CategoryGrid({ onCategorySelect }: CategoryGridProps) {

@@ -41,7 +41,7 @@ const DeliveryLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-teal-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
@@ -50,7 +50,7 @@ const DeliveryLogin = () => {
             <span>Back to Home</span>
           </Link>
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-cyan-600 to-teal-600 rounded-lg flex items-center justify-center">
               <Bike className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold text-gray-900">Kiro</span>
@@ -112,10 +112,10 @@ const DeliveryLogin = () => {
                       <input type="checkbox" className="rounded" />
                       <span className="text-sm text-gray-600">Remember me</span>
                     </label>
-                    <a href="#" className="text-sm text-green-600 hover:text-green-800">Forgot password?</a>
+                    <a href="#" className="text-sm text-cyan-600 hover:text-cyan-800">Forgot password?</a>
                   </div>
 
-                  <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white">
+                  <Button type="submit" className="w-full bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700 text-white">
                     Sign In
                   </Button>
                 </form>
@@ -125,7 +125,7 @@ const DeliveryLogin = () => {
                     Don't have an account?{" "}
                     <button 
                       onClick={() => setActiveTab("signup")}
-                      className="text-green-600 hover:text-green-800 font-medium"
+                      className="text-cyan-600 hover:text-cyan-800 font-medium"
                     >
                       Sign up here
                     </button>
@@ -248,13 +248,13 @@ const DeliveryLogin = () => {
                     <input type="checkbox" className="rounded" required />
                     <span className="text-sm text-gray-600">
                       I agree to the{" "}
-                      <a href="#" className="text-green-600 hover:text-green-800">Terms of Service</a>{" "}
+                      <a href="#" className="text-cyan-600 hover:text-cyan-800">Terms of Service</a>{" "}
                       and{" "}
-                      <a href="#" className="text-green-600 hover:text-green-800">Privacy Policy</a>
+                      <a href="#" className="text-cyan-600 hover:text-cyan-800">Privacy Policy</a>
                     </span>
                   </div>
 
-                  <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white">
+                  <Button type="submit" className="w-full bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700 text-white">
                     Register as Delivery Partner
                   </Button>
                 </form>
@@ -264,7 +264,7 @@ const DeliveryLogin = () => {
                     Already have an account?{" "}
                     <button 
                       onClick={() => setActiveTab("login")}
-                      className="text-green-600 hover:text-green-800 font-medium"
+                      className="text-cyan-600 hover:text-cyan-800 font-medium"
                     >
                       Sign in here
                     </button>

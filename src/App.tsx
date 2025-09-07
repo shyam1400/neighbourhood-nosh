@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import { OrderProvider } from "@/contexts/OrderContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { TranslateProvider } from "@/contexts/TranslateContext";
 import Index from "./pages/Index";
 import StartShopping from "./pages/StartShopping";
 import CustomerLogin from "./pages/CustomerLogin";
@@ -26,29 +27,31 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <LanguageProvider>
-        <CartProvider>
-          <OrderProvider>
-            <BrowserRouter future={{ v7_startTransition: true }}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/start-shopping" element={<StartShopping />} />
-              <Route path="/customer-login" element={<CustomerLogin />} />
-              <Route path="/vendor-login" element={<VendorLogin />} />
-              <Route path="/delivery-login" element={<DeliveryLogin />} />
-              <Route path="/delivery-signup" element={<DeliverySignup />} />
-              <Route path="/customer" element={<CustomerApp />} />
-              <Route path="/shop/:id" element={<ShopDetail />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/vendor" element={<VendorDashboard />} />
-              <Route path="/delivery" element={<DeliveryDashboard />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Toaster />
-            <Sonner />
-            <ContextualNotificationSystem />
-            </BrowserRouter>
-          </OrderProvider>
-        </CartProvider>
+        <TranslateProvider>
+          <CartProvider>
+            <OrderProvider>
+              <BrowserRouter future={{ v7_startTransition: true }}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/start-shopping" element={<StartShopping />} />
+                <Route path="/customer-login" element={<CustomerLogin />} />
+                <Route path="/vendor-login" element={<VendorLogin />} />
+                <Route path="/delivery-login" element={<DeliveryLogin />} />
+                <Route path="/delivery-signup" element={<DeliverySignup />} />
+                <Route path="/customer" element={<CustomerApp />} />
+                <Route path="/shop/:id" element={<ShopDetail />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/vendor" element={<VendorDashboard />} />
+                <Route path="/delivery" element={<DeliveryDashboard />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <Toaster />
+              <Sonner />
+              <ContextualNotificationSystem />
+              </BrowserRouter>
+            </OrderProvider>
+          </CartProvider>
+        </TranslateProvider>
       </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>

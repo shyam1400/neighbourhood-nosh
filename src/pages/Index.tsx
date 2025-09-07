@@ -6,7 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
+import TranslateButton from "@/components/TranslateButton";
 import kiranaImage from "@/assets/hero-grocery-store.jpg";
+import logoImage from "@/assets/logo.png";
 
 const Index = () => {
   const { t } = useLanguage();
@@ -14,33 +16,33 @@ const Index = () => {
 
   const features = [
     {
-      icon: <Store className="w-8 h-8 text-blue-600" />,
-      title: t('home.localKiranaStores'),
-      description: t('home.localStoresDesc'),
-      color: "from-blue-50 to-blue-100",
-      iconColor: "bg-blue-100"
-    },
-    {
-      icon: <Bell className="w-8 h-8 text-green-600" />,
-      title: t('home.realTimeNotifications'),
-      description: t('home.notificationsDesc'),
-      color: "from-green-50 to-green-100",
+      icon: "🛒",
+      title: "Fresh Groceries",
+      description: "Get fresh vegetables, fruits, and daily essentials from local supermarkets and grocery stores",
+      color: "from-green-50 to-emerald-100",
       iconColor: "bg-green-100"
     },
     {
-      icon: <Truck className="w-8 h-8 text-purple-600" />,
-      title: t('home.fastDeliveryTitle'),
-      description: t('home.fastDeliveryDesc'),
-      color: "from-purple-50 to-purple-100",
-      iconColor: "bg-purple-100"
+      icon: "🥩",
+      title: "Premium Meat & Seafood",
+      description: "Quality meat, poultry, and fresh seafood delivered from trusted local butchers and fish markets",
+      color: "from-red-50 to-rose-100",
+      iconColor: "bg-red-100"
+    },
+    {
+      icon: "🏪",
+      title: "Supermarket Convenience",
+      description: "Shop from multiple supermarkets and specialty stores all in one place with fast delivery",
+      color: "from-blue-50 to-indigo-100",
+      iconColor: "bg-blue-100"
     }
   ];
 
   const stats = [
-    { number: "500+", label: t('home.localStores') },
-    { number: "10K+", label: t('home.happyCustomers') },
-    { number: "15min", label: t('home.avgDelivery') },
-    { number: "4.8★", label: t('home.rating') }
+    { number: "200+", label: "Grocery Stores" },
+    { number: "50+", label: "Butcher Shops" },
+    { number: "30min", label: "Fresh Delivery" },
+    { number: "4.9★", label: "Customer Rating" }
   ];
 
   return (
@@ -59,35 +61,46 @@ const Index = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Navigation */}
-        <nav className="bg-white/90 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+        <nav className="bg-white/80 backdrop-blur-xl border-b border-white/20 sticky top-0 z-50 shadow-lg shadow-black/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <ShoppingBag className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-gray-900">Kiro</span>
+              <Link to="/" className="flex items-center group">
+                <img 
+                  src={logoImage} 
+                  alt="Kiro Logo" 
+                  className="w-12 h-12 rounded-lg object-cover transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+                />
               </Link>
               <div className="hidden md:flex items-center space-x-8">
-                <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">{t('home.features')}</a>
-                <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 transition-colors">{t('home.howItWorks')}</a>
-                <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors">{t('home.contact')}</a>
+                <a href="#features" className="text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
+                  {t('home.features')}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
+                  {t('home.howItWorks')}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
+                  {t('home.contact')}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
               </div>
               <div className="flex items-center space-x-4">
                 <LanguageSelector />
+                <TranslateButton />
                 <Link to="/vendor-login">
-                  <Button variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 font-semibold">
-                    {t('home.joinAsVendor')}
+                  <Button variant="outline" className="border-2 border-green-600 text-green-600 hover:bg-green-50 hover:border-green-700 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    🏪 Join as Store Owner
                   </Button>
                 </Link>
                 <Link to="/delivery-login">
-                  <Button variant="outline" className="border-2 border-green-600 text-green-600 hover:bg-green-50 hover:border-green-700 font-semibold">
-                    {t('home.joinAsDelivery')}
+                  <Button variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    🚚 Join as Delivery Partner
                   </Button>
                 </Link>
                 <Link to="/customer-login">
-                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-full">
-                    {t('home.startShopping')}
+                  <Button className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white px-6 py-2 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg">
+                    Start Shopping
                   </Button>
                 </Link>
               </div>
@@ -101,32 +114,32 @@ const Index = () => {
             <div className="text-center">
               <div className="space-y-8">
                 <div className="space-y-4">
-                  <Badge className="bg-blue-100 text-blue-800 border-blue-200 px-4 py-2 rounded-full">
-                    🚀 New Way to Shop Local
+                  <Badge className="bg-green-100 text-green-800 border-green-200 px-6 py-3 rounded-full shadow-lg animate-pulse text-lg font-semibold">
+                    🚀 From the Street to Your Seat
                   </Badge>
-                  <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-                    <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Kiro</span>
+                  <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight animate-fade-in">
+                    <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent animate-gradient">Kiro</span>
                   </h1>
                   <p className="text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto font-normal">
-                    {t('home.title')}
+                    Fresh groceries, premium meat, and supermarket essentials delivered from local stores to your doorstep
                   </p>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/customer-login">
-                    <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold">
-                      {t('home.startShopping')}
-                      <ArrowRight className="ml-2 w-5 h-5" />
+                    <Button size="lg" className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl shadow-lg group">
+                      Start Shopping
+                      <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                     </Button>
                   </Link>
                   <Link to="/vendor-login">
-                    <Button size="lg" variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 px-8 py-4 rounded-full text-lg font-bold">
-                      {t('home.joinAsVendor')}
+                    <Button size="lg" variant="outline" className="border-2 border-green-600 text-green-600 hover:bg-green-50 hover:border-green-700 px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                      🏪 Join as Store Owner
                     </Button>
                   </Link>
                   <Link to="/delivery-login">
-                    <Button size="lg" variant="outline" className="border-2 border-green-600 text-green-600 hover:bg-green-50 hover:border-green-700 px-8 py-4 rounded-full text-lg font-bold">
-                      {t('home.joinAsDelivery')}
+                    <Button size="lg" variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                      🚚 Join as Delivery Partner
                     </Button>
                   </Link>
                 </div>
@@ -134,9 +147,11 @@ const Index = () => {
                 {/* Stats */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8 max-w-4xl mx-auto">
                   {stats.map((stat, index) => (
-                    <div key={index} className="text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white">{stat.number}</div>
-                      <div className="text-sm text-gray-200">{stat.label}</div>
+                    <div key={index} className="text-center group">
+                      <div className="bg-white/20 rounded-2xl p-6 border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white/30">
+                        <div className="text-2xl lg:text-3xl font-bold text-white group-hover:text-green-300 transition-colors duration-300">{stat.number}</div>
+                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors duration-300">{stat.label}</div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -146,7 +161,7 @@ const Index = () => {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-20 bg-white/95 backdrop-blur-sm">
+        <section id="features" className="py-20 bg-white/90 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -161,16 +176,16 @@ const Index = () => {
               {features.map((feature, index) => (
                 <Card 
                   key={index} 
-                  className={`p-8 text-center hover:shadow-xl transition-all duration-300 cursor-pointer ${feature.color} border-0`}
+                  className={`p-8 text-center hover:shadow-2xl transition-all duration-500 cursor-pointer ${feature.color} border-0 backdrop-blur-sm bg-white/80 hover:bg-white/90 hover:scale-105 hover:-translate-y-2`}
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
                   <CardContent className="p-0">
-                    <div className={`w-16 h-16 ${feature.iconColor} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
-                      {feature.icon}
+                    <div className={`w-16 h-16 ${feature.iconColor} rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300 hover:scale-110 hover:rotate-6 shadow-lg`}>
+                      <span className="text-3xl transition-transform duration-300 hover:scale-110">{feature.icon}</span>
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4 transition-colors duration-300 hover:text-green-600">{feature.title}</h3>
+                    <p className="text-gray-600 leading-relaxed transition-colors duration-300 hover:text-gray-800">{feature.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -179,67 +194,67 @@ const Index = () => {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="py-20 bg-gradient-to-br from-blue-50/95 to-purple-50/95 backdrop-blur-sm">
+        <section id="how-it-works" className="py-20 bg-gradient-to-br from-green-50/90 to-emerald-50/90 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                {t('home.howItWorks')}
+                How It Works
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {t('home.subtitle')}
+                From grocery store to your table in just three simple steps
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-2xl font-bold text-white">1</span>
+              <div className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:rotate-6">
+                  <span className="text-2xl transition-transform duration-300 group-hover:scale-110">🛒</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('home.browseStores')}</h3>
-                <p className="text-gray-600">{t('home.browseStoresDesc')}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 transition-colors duration-300 group-hover:text-green-600">Browse Groceries & Meat</h3>
+                <p className="text-gray-600 transition-colors duration-300 group-hover:text-gray-800">Explore fresh groceries, premium meat, and supermarket essentials from local stores</p>
               </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-2xl font-bold text-white">2</span>
+              <div className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:rotate-6">
+                  <span className="text-2xl transition-transform duration-300 group-hover:scale-110">🛍️</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('home.placeOrder')}</h3>
-                <p className="text-gray-600">{t('home.placeOrderDesc')}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 transition-colors duration-300 group-hover:text-green-600">Add to Cart</h3>
+                <p className="text-gray-600 transition-colors duration-300 group-hover:text-gray-800">Select your favorite groceries and meat products and add them to your cart</p>
               </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-2xl font-bold text-white">3</span>
+              <div className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:rotate-6">
+                  <span className="text-2xl transition-transform duration-300 group-hover:scale-110">🚚</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('home.getDelivered')}</h3>
-                <p className="text-gray-600">{t('home.getDeliveredDesc')}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 transition-colors duration-300 group-hover:text-green-600">Fresh Delivery</h3>
+                <p className="text-gray-600 transition-colors duration-300 group-hover:text-gray-800">Get your fresh groceries and meat delivered to your doorstep within 30 minutes</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600/95 to-purple-600/95 backdrop-blur-sm">
+        <section className="py-20 bg-gradient-to-r from-green-600/90 to-emerald-500/90 backdrop-blur-xl">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              {t('home.readyToConnect')}
+              Ready to Shop Fresh?
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
-              {t('home.joinThousands')}
+            <p className="text-xl text-green-100 mb-8">
+              Join thousands of families enjoying fresh groceries and premium meat from local stores
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/customer-login">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold">
-                  {t('home.startShoppingNow')}
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                <Button size="lg" className="bg-white/90 backdrop-blur-sm text-green-600 hover:bg-white hover:shadow-2xl px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 group">
+                  🛒 Start Shopping Now
+                  <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
               </Link>
                 <Link to="/vendor-login">
-                  <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold">
-                    {t('home.joinAsVendor')}
+                  <Button size="lg" className="bg-white/80 backdrop-blur-sm text-green-600 hover:bg-white hover:shadow-xl px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105">
+                    🏪 Join as Store Owner
                   </Button>
                 </Link>
                 <Link to="/delivery-login">
-                  <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold">
-                    {t('home.joinAsDelivery')}
+                  <Button size="lg" className="bg-white/80 backdrop-blur-sm text-blue-600 hover:bg-white hover:shadow-xl px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105">
+                    🚚 Join as Delivery Partner
                   </Button>
                 </Link>
             </div>
@@ -247,17 +262,18 @@ const Index = () => {
         </section>
 
         {/* Footer */}
-        <footer className="bg-gray-900/95 backdrop-blur-sm text-white py-12">
+        <footer className="bg-gray-900/90 backdrop-blur-xl text-white py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-4 gap-8">
               <div>
-                <Link to="/" className="flex items-center space-x-2 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                    <ShoppingBag className="w-5 h-5 text-white" />
-                  </div>
-                  <span className="text-xl font-bold">Kiro</span>
+                <Link to="/" className="flex items-center mb-4 group">
+                  <img 
+                    src={logoImage} 
+                    alt="Kiro Logo" 
+                    className="w-12 h-12 rounded-lg object-cover transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+                  />
                 </Link>
-                <p className="text-gray-400">{t('home.connectingStores')}</p>
+                <p className="text-gray-400">Connecting you with fresh groceries and premium meat from local stores</p>
               </div>
               <div>
                 <h3 className="font-semibold mb-4">{t('home.product')}</h3>

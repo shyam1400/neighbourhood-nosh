@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import kiranaImage from "@/assets/hero-grocery-store.jpg";
+import logoImage from "@/assets/logo.png";
 
 const StartShopping = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -157,11 +158,12 @@ const StartShopping = () => {
                   Back to Home
                 </Button>
               </Link>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <ShoppingCart className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-gray-900">Kiro</span>
+              <div className="flex items-center">
+                <img 
+                  src={logoImage} 
+                  alt="Kiro Logo" 
+                  className="w-12 h-12 rounded-lg object-cover"
+                />
               </div>
             </div>
             <div className="flex items-center space-x-4">

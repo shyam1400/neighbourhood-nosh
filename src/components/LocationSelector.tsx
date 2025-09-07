@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { MapPin, Search, Check, ChevronDown } from 'lucide-react';
+import { MapPin, Search, Check, ChevronDown, Map, Navigation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import MapView from './MapView';
+import { isMapsApiKeyConfigured } from '@/config/maps';
 
 interface Location {
   id: string;
@@ -130,7 +133,7 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
         </Button>
       </DialogTrigger>
       
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <MapPin className="w-5 h-5" />
@@ -138,69 +141,121 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Search for area, pincode..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-
-          {/* Current Location Button */}
-          <Button
-            variant="outline"
-            onClick={getCurrentLocation}
-            className="w-full flex items-center gap-2"
-          >
-            <MapPin className="w-4 h-4" />
-            Use Current Location
-          </Button>
-
-          {/* Popular Locations */}
-          <div className="space-y-2">
-            <h4 className="font-medium text-gray-900">Popular Locations</h4>
-            <div className="max-h-60 overflow-y-auto space-y-2">
-              {filteredLocations.map((location) => (
-                <Card
-                  key={location.id}
-                  className={`cursor-pointer transition-all hover:shadow-md ${
-                    currentLocation?.id === location.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
-                  }`}
-                  onClick={() => handleLocationSelect(location)}
-                >
-                  <CardContent className="p-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <h5 className="font-medium text-gray-900">{location.name}</h5>
-                          {currentLocation?.id === location.id && (
-                            <Check className="w-4 h-4 text-blue-600" />
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600">{location.address}</p>
-                        <Badge variant="outline" className="text-xs mt-1">
-                          {location.pincode}
-                        </Badge>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+        <Tabs defaultValue="list" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="list" className="flex items-center gap-2">
+              <Search className="w-4 h-4" />
+              List View
+            </TabsTrigger>
+            <TabsTrigger value="map" className="flex items-center gap-2">
+              <Map className="w-4 h-4" />
+              Map View
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="list" className="space-y-4 mt-4">
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input
+                placeholder="Search for area, pincode..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
             </div>
-          </div>
 
-          {/* Service Areas Info */}
-          <div className="bg-blue-50 p-3 rounded-lg">
-            <p className="text-sm text-blue-800">
-              <strong>Service Areas:</strong> We currently deliver to Bangalore and surrounding areas. 
-              More cities coming soon!
-            </p>
-          </div>
-        </div>
+            {/* Current Location Button */}
+            <Button
+              variant="outline"
+              onClick={getCurrentLocation}
+              className="w-full flex items-center gap-2"
+            >
+              <Navigation className="w-4 h-4" />
+              Use Current Location
+            </Button>
+
+            {/* Popular Locations */}
+            <div className="space-y-2">
+              <h4 className="font-medium text-gray-900">Popular Locations</h4>
+              <div className="max-h-60 overflow-y-auto space-y-2">
+                {filteredLocations.map((location) => (
+                  <Card
+                    key={location.id}
+                    className={`cursor-pointer transition-all hover:shadow-md ${
+                      currentLocation?.id === location.id ? 'ring-2 ring-purple-500 bg-purple-50' : ''
+                    }`}
+                    onClick={() => handleLocationSelect(location)}
+                  >
+                    <CardContent className="p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <h5 className="font-medium text-gray-900">{location.name}</h5>
+                            {currentLocation?.id === location.id && (
+                              <Check className="w-4 h-4 text-purple-600" />
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-600">{location.address}</p>
+                          <Badge variant="outline" className="text-xs mt-1">
+                            {location.pincode}
+                          </Badge>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Service Areas Info */}
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <p className="text-sm text-purple-800">
+                <strong>Service Areas:</strong> We currently deliver to Bangalore and surrounding areas. 
+                More cities coming soon!
+              </p>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="map" className="mt-4">
+            {isMapsApiKeyConfigured() ? (
+              <div className="h-96">
+                <MapView
+                  stores={popularLocations.map(loc => ({
+                    id: loc.id,
+                    name: loc.name,
+                    address: loc.address,
+                    latitude: loc.coordinates.lat,
+                    longitude: loc.coordinates.lng,
+                    rating: 4.5,
+                    deliveryTime: '30-45 min',
+                    distance: '2.5 km',
+                    isOpen: true
+                  }))}
+                  userLocation={currentLocation?.coordinates}
+                  onStoreSelect={(store) => {
+                    const location = popularLocations.find(loc => loc.id === store.id);
+                    if (location) {
+                      handleLocationSelect(location);
+                    }
+                  }}
+                  selectedStoreId={currentLocation?.id}
+                  showFilters={false}
+                  showSearch={false}
+                  height="h-96"
+                />
+              </div>
+            ) : (
+              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <Map className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600">Map view not available</p>
+                  <p className="text-sm text-gray-500">Please use the list view to select your location</p>
+                </div>
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );

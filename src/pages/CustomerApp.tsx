@@ -15,9 +15,11 @@ import UserProfile from "@/components/UserProfile";
 import LocationSelector from "@/components/LocationSelector";
 import LogoutDialog from "@/components/LogoutDialog";
 import LanguageSelector from "@/components/LanguageSelector";
+import TranslateButton from "@/components/TranslateButton";
 import RecipePackages from "@/components/RecipePackages";
 import { useLanguage } from "@/contexts/LanguageContext";
 import heroImage from "@/assets/hero-grocery-store.jpg";
+import logoImage from "@/assets/logo.png";
 
 const CustomerApp = () => {
   const { t } = useLanguage();
@@ -60,7 +62,7 @@ const CustomerApp = () => {
     image: heroImage,
     offers: ["Free delivery on ₹200+"],
     speciality: "Fresh products daily",
-    color: "emerald"
+    color: "teal"
   }));
 
   const categories = [
@@ -88,24 +90,24 @@ const CustomerApp = () => {
   const quickActions = [
     { icon: Zap, title: "Express Delivery", desc: "15 min delivery", color: "yellow" },
     { icon: Bell, title: "Special Offers", desc: "Exclusive deals", color: "pink" },
-    { icon: Star, title: "Top Rated", desc: "Best stores", color: "blue" },
+    { icon: Star, title: "Top Rated", desc: "Best stores", color: "purple" },
     { icon: Heart, title: "Favorites", desc: "Your picks", color: "red" }
   ];
 
   const getColorClasses = (color: string) => {
     const colors = {
-      blue: "from-blue-500 to-cyan-500",
-      emerald: "from-emerald-500 to-teal-500",
+      purple: "from-purple-500 to-violet-500",
+      teal: "from-teal-500 to-cyan-500",
       cyan: "from-cyan-500 to-blue-500",
-      orange: "from-orange-500 to-red-500",
-      teal: "from-teal-500 to-emerald-500",
-      indigo: "from-indigo-500 to-blue-500",
+      indigo: "from-indigo-500 to-purple-500",
+      violet: "from-violet-500 to-purple-500",
+      emerald: "from-emerald-500 to-teal-500",
       slate: "from-slate-500 to-gray-500",
-      yellow: "from-yellow-500 to-orange-500",
+      orange: "from-orange-500 to-red-500",
       pink: "from-pink-500 to-rose-500",
       red: "from-red-500 to-pink-500"
     };
-    return colors[color as keyof typeof colors] || colors.blue;
+    return colors[color as keyof typeof colors] || colors.purple;
   };
 
   return (
@@ -124,16 +126,18 @@ const CustomerApp = () => {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <ShoppingCart className="w-5 h-5 text-white" />
-                </div>
-                <h1 className="text-2xl font-bold text-gray-900">Kiro</h1>
+              <div className="flex items-center">
+                <img 
+                  src={logoImage} 
+                  alt="Kiro Logo" 
+                  className="w-14 h-14 rounded-xl object-cover shadow-lg"
+                />
               </div>
             </div>
             
             <div className="flex items-center gap-4">
               <LanguageSelector />
+              <TranslateButton />
               <LocationSelector
                 currentLocation={currentLocation}
                 onLocationSelect={setCurrentLocation}
@@ -156,7 +160,7 @@ const CustomerApp = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-16">
+      <section className="bg-gradient-to-r from-purple-600 to-cyan-500 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold mb-4">
@@ -248,7 +252,7 @@ const CustomerApp = () => {
                         <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">{product.image}</div>
                         <h4 className="font-semibold text-sm mb-2 text-gray-900">{product.name}</h4>
                         <div className="flex items-center justify-center gap-2 mb-3">
-                          <p className="text-blue-600 font-bold text-lg">₹{product.price}</p>
+                          <p className="text-purple-600 font-bold text-lg">₹{product.price}</p>
                           <p className="text-gray-500 text-xs">per {product.unit}</p>
                         </div>
                         {getItemQuantity(product.id) > 0 ? (
@@ -276,7 +280,7 @@ const CustomerApp = () => {
                         ) : (
                           <Button 
                             size="sm" 
-                            className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white font-bold"
+                            className="w-full bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 text-white font-bold"
                             onClick={() => addToCart(product)}
                           >
                             Add to Cart
@@ -332,7 +336,7 @@ const CustomerApp = () => {
                                 </div>
                                 <p className="text-sm text-gray-600">{store.speciality}</p>
                               </div>
-                              <Button variant="ghost" size="icon" className="text-gray-400 hover:text-blue-500">
+                              <Button variant="ghost" size="icon" className="text-gray-400 hover:text-purple-500">
                                 <Heart className="w-4 h-4" />
                               </Button>
                             </div>
@@ -355,7 +359,7 @@ const CustomerApp = () => {
                                 <Badge 
                                   key={idx} 
                                   variant="outline" 
-                                  className="text-xs border-blue-200 text-blue-700"
+                                  className="text-xs border-purple-200 text-purple-700"
                                 >
                                   {category}
                                 </Badge>
@@ -384,13 +388,16 @@ const CustomerApp = () => {
               </section>
             </TabsContent>
 
-            <TabsContent value="map">
-              <MapView 
-                stores={localStores}
-                userLocation={{ lat: 12.9716, lng: 77.5946 }}
-                onStoreSelect={(store) => window.open(`/shop/${store.id}`, '_self')}
-              />
-            </TabsContent>
+        <TabsContent value="map">
+          <MapView 
+            stores={localStores}
+            userLocation={{ lat: 12.9716, lng: 77.5946 }}
+            onStoreSelect={(store) => window.open(`/shop/${store.id}`, '_self')}
+            showFilters={true}
+            showSearch={true}
+            height="h-[500px]"
+          />
+        </TabsContent>
           </Tabs>
         </section>
 
@@ -401,22 +408,22 @@ const CustomerApp = () => {
           </h3>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-cyan-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-6 h-6 text-purple-600" />
               </div>
               <h4 className="font-bold mb-2 text-gray-900">15-Min Delivery</h4>
               <p className="text-gray-600 text-sm">Lightning fast delivery from nearby local stores</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <ShoppingCart className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-cyan-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <ShoppingCart className="w-6 h-6 text-purple-600" />
               </div>
               <h4 className="font-bold mb-2 text-gray-900">Fresh Products</h4>
               <p className="text-gray-600 text-sm">Quality groceries from trusted local stores</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-cyan-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Heart className="w-6 h-6 text-purple-600" />
               </div>
               <h4 className="font-bold mb-2 text-gray-900">Support Local</h4>
               <p className="text-gray-600 text-sm">Help your neighborhood local stores grow</p>
