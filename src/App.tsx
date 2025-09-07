@@ -8,7 +8,6 @@ import { OrderProvider } from "@/contexts/OrderContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { TranslateProvider } from "@/contexts/TranslateContext";
 import Index from "./pages/Index";
-import StartShopping from "./pages/StartShopping";
 import CustomerLogin from "./pages/CustomerLogin";
 import VendorLogin from "./pages/VendorLogin";
 import DeliveryLogin from "./pages/DeliveryLogin";
@@ -34,7 +33,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/start-shopping" element={<CustomerLogin />} />
-                <Route path="/customer-login" element={<CustomerApp />} />
+                <Route path="/customer-login" element={<CustomerLogin />} />
                 <Route path="/vendor-login" element={<VendorLogin />} />
                 <Route path="/delivery-login" element={<DeliveryLogin />} />
                 <Route path="/delivery-signup" element={<DeliverySignup />} />

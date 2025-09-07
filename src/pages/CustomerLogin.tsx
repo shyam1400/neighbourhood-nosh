@@ -6,9 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import logoImage from "@/assets/logo.png";
 
 const CustomerLogin = () => {
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState("login");
   const [loginData, setLoginData] = useState({

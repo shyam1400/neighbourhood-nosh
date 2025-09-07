@@ -97,7 +97,7 @@ const Index = () => {
                       🚚 Delivery
                     </Button>
                   </Link>
-                  <Link to="/customer-login">
+                  <Link to="/start-shopping">
                     <Button size="sm" className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg text-xs">
                       Start Shopping
                     </Button>
@@ -280,7 +280,7 @@ const Index = () => {
                 <ul className="space-y-2 text-gray-400">
                   <li><a href="#features" className="hover:text-white transition-colors">{t('home.features')}</a></li>
                   <li><a href="#how-it-works" className="hover:text-white transition-colors">{t('home.howItWorks')}</a></li>
-                  <li><Link to="/customer-login" className="hover:text-white transition-colors">{t('home.startShopping')}</Link></li>
+                  <li><Link to="/start-shopping" className="hover:text-white transition-colors">{t('home.startShopping')}</Link></li>
                 </ul>
               </div>
               <div>

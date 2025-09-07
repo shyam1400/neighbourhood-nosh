@@ -111,9 +111,11 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
     case 'CLEAR_CART':
       return {
+        ...state,
         items: [],
         total: 0,
-        itemCount: 0
+        itemCount: 0,
+        storeCarts: []
       };
 
     case 'LOAD_CART':
@@ -146,7 +148,7 @@ const initialState: CartState = {
   total: 0,
   itemCount: 0,
   storeCarts: [],
-  multiStoreEnabled: false
+  multiStoreEnabled: true
 };
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -224,19 +226,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const canAddToCart = (product: Product): boolean => {
-    if (!state.multiStoreEnabled) {
-      return true;
-    }
-
-    // If multi-store is enabled, check if adding this product would create too many stores
-    const currentStores = new Set(state.items.map(item => item.product.storeId));
-    const productStoreId = product.storeId;
-    
-    // If product is from a new store and we already have items from 2+ stores, don't allow
-    if (!currentStores.has(productStoreId) && currentStores.size >= 2) {
-      return false;
-    }
-
+    // Always allow adding to cart - multi-store is enabled by default
     return true;
   };
 

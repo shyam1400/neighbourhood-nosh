@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart } from "@/contexts/CartContext";
 import { products, getProductsByCategory } from "@/data/products";
-import { stores, getStoreById } from "@/data/stores";
+import { stores, getStoreById, calculateDistance } from "@/data/stores";
 import MapView from "@/components/MapView";
 import NotificationSystem from "@/components/NotificationSystem";
 import CartModal from "@/components/CartModal";
@@ -53,13 +53,29 @@ const CustomerApp = () => {
     setShowLogoutDialog(true);
   };
 
-  const localStores = stores.map(store => ({
-    ...store,
-    image: heroImage,
-    offers: ["Free delivery on ₹200+"],
-    speciality: "Fresh products daily",
-    color: "teal"
-  }));
+  // Calculate distance and sort stores by proximity to current location
+  const localStores = stores
+    .map(store => {
+      const distance = calculateDistance(
+        currentLocation.coordinates.lat,
+        currentLocation.coordinates.lng,
+        store.latitude,
+        store.longitude
+      );
+      return {
+        ...store,
+        image: heroImage,
+        offers: ["Free delivery on ₹200+"],
+        speciality: "Fresh products daily",
+        color: "teal",
+        calculatedDistance: distance
+      };
+    })
+    .sort((a, b) => a.calculatedDistance - b.calculatedDistance)
+    .map(store => ({
+      ...store,
+      distance: `${store.calculatedDistance.toFixed(1)} km`
+    }));
 
   const categories = [
     { name: "All", nameKey: "common.all", icon: "🛒", color: "blue" },
@@ -81,7 +97,29 @@ const CustomerApp = () => {
     { name: "Household", nameKey: "category.household", icon: "🧽", color: "slate" }
   ];
 
-  const featuredProducts = getProductsByCategory(selectedCategory).slice(0, 4);
+  // Filter stores based on search query
+  const filteredStores = localStores.filter(store => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      store.name.toLowerCase().includes(query) ||
+      store.categories.some(category => category.toLowerCase().includes(query)) ||
+      store.address.toLowerCase().includes(query)
+    );
+  });
+
+  // Filter products based on search query and category
+  const filteredProducts = getProductsByCategory(selectedCategory).filter(product => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      product.name.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query) ||
+      product.description?.toLowerCase().includes(query)
+    );
+  });
+
+  const featuredProducts = filteredProducts.slice(0, 4);
 
   const quickActions = [
     { icon: Zap, title: "Express Delivery", desc: "15 min delivery", color: "yellow" },
@@ -238,9 +276,23 @@ const CustomerApp = () => {
 
               {/* Featured Products */}
               <section>
-                <h3 className="text-2xl font-bold mb-6 text-gray-900">Popular Products</h3>
+                <h3 className="text-2xl font-bold mb-6 text-gray-900">
+                  {searchQuery.trim() ? `Products matching "${searchQuery}"` : "Popular Products"}
+                </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {featuredProducts.map((product) => (
+                  {featuredProducts.length === 0 ? (
+                    <div className="col-span-full text-center py-8">
+                      <div className="text-4xl mb-3">🛒</div>
+                      <h4 className="text-lg font-semibold text-gray-600 mb-2">No products found</h4>
+                      <p className="text-gray-500">
+                        {searchQuery.trim() 
+                          ? `No products match your search for "${searchQuery}". Try a different search term.`
+                          : "No products available in this category."
+                        }
+                      </p>
+                    </div>
+                  ) : (
+                    featuredProducts.map((product) => (
                     <Card key={product.id} className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
                       <CardContent className="p-4 text-center">
                         <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">{product.image}</div>
@@ -282,7 +334,8 @@ const CustomerApp = () => {
                         )}
                       </CardContent>
                     </Card>
-                  ))}
+                    ))
+                  )}
                 </div>
               </section>
 
@@ -292,14 +345,44 @@ const CustomerApp = () => {
               {/* Local Stores */}
               <section>
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900">Local Stores Near You</h3>
-                  <Badge className="bg-emerald-100 text-emerald-800 px-3 py-1">
-                    {localStores.filter(store => store.isOpen).length} stores open
-                  </Badge>
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {searchQuery.trim() ? `Search Results for "${searchQuery}"` : "Local Stores Near You"}
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    {searchQuery.trim() && (
+                      <Badge variant="outline" className="text-blue-600 border-blue-200">
+                        {filteredStores.length} results
+                      </Badge>
+                    )}
+                    <Badge className="bg-emerald-100 text-emerald-800 px-3 py-1">
+                      {filteredStores.filter(store => store.isOpen).length} stores open
+                    </Badge>
+                  </div>
                 </div>
                 
                 <div className="space-y-4">
-                  {localStores.map((store) => (
+                  {filteredStores.length === 0 ? (
+                    <div className="text-center py-12">
+                      <div className="text-6xl mb-4">🔍</div>
+                      <h3 className="text-xl font-semibold text-gray-600 mb-2">No stores found</h3>
+                      <p className="text-gray-500 mb-4">
+                        {searchQuery.trim() 
+                          ? `No stores match your search for "${searchQuery}". Try a different search term.`
+                          : "No stores are available in your area at the moment."
+                        }
+                      </p>
+                      {searchQuery.trim() && (
+                        <Button 
+                          variant="outline" 
+                          onClick={() => setSearchQuery("")}
+                          className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                        >
+                          Clear Search
+                        </Button>
+                      )}
+                    </div>
+                  ) : (
+                    filteredStores.map((store) => (
                     <Card 
                       key={store.id}
                       className={`cursor-pointer transition-all duration-300 hover:shadow-lg group ${
@@ -377,15 +460,16 @@ const CustomerApp = () => {
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
+                    ))
+                  )}
                 </div>
               </section>
             </TabsContent>
 
         <TabsContent value="map">
           <MapView 
-            stores={localStores}
-            userLocation={{ lat: 12.9716, lng: 77.5946 }}
+            stores={filteredStores}
+            userLocation={currentLocation.coordinates}
             onStoreSelect={(store) => window.open(`/shop/${store.id}`, '_self')}
             showFilters={true}
             showSearch={true}
