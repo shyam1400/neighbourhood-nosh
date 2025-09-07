@@ -33,8 +33,8 @@ const App = () => (
               <BrowserRouter future={{ v7_startTransition: true }}>
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route path="/start-shopping" element={<StartShopping />} />
-                <Route path="/customer-login" element={<CustomerLogin />} />
+                <Route path="/start-shopping" element={<CustomerLogin />} />
+                <Route path="/customer-login" element={<CustomerApp />} />
                 <Route path="/vendor-login" element={<VendorLogin />} />
                 <Route path="/delivery-login" element={<DeliveryLogin />} />
                 <Route path="/delivery-signup" element={<DeliverySignup />} />

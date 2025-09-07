@@ -82,9 +82,9 @@ const VendorDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900" onClick={handleBackClick}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -197,13 +197,16 @@ const VendorDashboard = () => {
                         <strong>Customer:</strong> {order.customerName}
                       </p>
                       <p className="text-gray-600 mb-2">
-                        <strong>Items:</strong> {order.items.join(", ")}
+                        <strong>Items:</strong> {order.items.map(item => `${item.product?.name || 'Unknown Product'} (${item.quantity}x)`).join(", ")}
                       </p>
                       <p className="text-gray-600 mb-2">
-                        <strong>Address:</strong> {order.address}
+                        <strong>Address:</strong> {order.deliveryAddress}
+                      </p>
+                      <p className="text-gray-600 mb-2">
+                        <strong>Time:</strong> {order.createdAt.toLocaleTimeString()}
                       </p>
                       <p className="text-gray-600 mb-4">
-                        <strong>Total:</strong> ₹{order.total} • <strong>Time:</strong> {order.time}
+                        <strong>Total:</strong> ₹{order.totalAmount} • <strong>Payment:</strong> {order.paymentMethod.toUpperCase()}
                       </p>
                     </div>
                     {order.status === 'pending' && (

@@ -7,9 +7,6 @@ import { useLanguage, Language } from '@/contexts/LanguageContext';
 const languageOptions = [
   { code: 'en' as Language, name: 'English', flag: '🇺🇸' },
   { code: 'hi' as Language, name: 'हिन्दी', flag: '🇮🇳' },
-  { code: 'ta' as Language, name: 'தமிழ்', flag: '🇮🇳' },
-  { code: 'kn' as Language, name: 'ಕನ್ನಡ', flag: '🇮🇳' },
-  { code: 'ml' as Language, name: 'മലയാളം', flag: '🇮🇳' },
 ];
 
 const LanguageSelector: React.FC = () => {

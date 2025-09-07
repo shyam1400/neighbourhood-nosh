@@ -14,15 +14,11 @@ import CartModal from "@/components/CartModal";
 import UserProfile from "@/components/UserProfile";
 import LocationSelector from "@/components/LocationSelector";
 import LogoutDialog from "@/components/LogoutDialog";
-import LanguageSelector from "@/components/LanguageSelector";
-import TranslateButton from "@/components/TranslateButton";
 import RecipePackages from "@/components/RecipePackages";
-import { useLanguage } from "@/contexts/LanguageContext";
 import heroImage from "@/assets/hero-grocery-store.jpg";
 import logoImage from "@/assets/logo.png";
 
 const CustomerApp = () => {
-  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [activeTab, setActiveTab] = useState("stores");
@@ -113,31 +109,29 @@ const CustomerApp = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between h-20">
+            <div className="flex items-center gap-3">
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={handleBackClick}
-                className="hover:bg-gray-100"
+                className="hover:bg-gray-100 w-8 h-8"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-4 h-4" />
               </Button>
               
               <div className="flex items-center">
                 <img 
                   src={logoImage} 
                   alt="Kiro Logo" 
-                  className="w-14 h-14 rounded-xl object-cover shadow-lg"
+                  className="w-20 h-20 rounded-xl object-cover shadow-lg"
                 />
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
-              <LanguageSelector />
-              <TranslateButton />
+            <div className="flex items-center gap-1">
               <LocationSelector
                 currentLocation={currentLocation}
                 onLocationSelect={setCurrentLocation}
@@ -236,7 +230,7 @@ const CustomerApp = () => {
                       }`}
                     >
                       <span className="text-2xl">{category.icon}</span>
-                      <span className="text-sm font-medium">{t(category.nameKey)}</span>
+                      <span className="text-sm font-medium">{category.name}</span>
                     </button>
                   ))}
                 </div>

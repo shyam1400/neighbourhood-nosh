@@ -209,6 +209,256 @@ const initialState: OrderState = {
       updatedAt: new Date(Date.now() - 1.5 * 60 * 60 * 1000),
       customerName: 'Amit Singh',
       storeName: 'Koramangala Fresh Mart'
+    },
+    {
+      id: 'order_4',
+      customerId: 'customer_4',
+      storeId: '1',
+      items: [
+        {
+          product: {
+            id: '7',
+            name: 'Wheat Flour',
+            price: 45,
+            unit: 'kg',
+            image: '🌾',
+            storeId: '1'
+          },
+          quantity: 2
+        },
+        {
+          product: {
+            id: '8',
+            name: 'Sugar',
+            price: 35,
+            unit: 'kg',
+            image: '🍯',
+            storeId: '1'
+          },
+          quantity: 1
+        },
+        {
+          product: {
+            id: '9',
+            name: 'Tea Leaves',
+            price: 120,
+            unit: 'packet',
+            image: '🍵',
+            storeId: '1'
+          },
+          quantity: 1
+        }
+      ],
+      totalAmount: 245,
+      deliveryAddress: '456, Indiranagar 100ft Road, Bangalore - 560038',
+      status: 'preparing',
+      paymentStatus: 'paid',
+      paymentMethod: 'upi',
+      deliveryTime: '25-30 min',
+      createdAt: new Date(Date.now() - 5 * 60 * 1000), // 5 minutes ago
+      updatedAt: new Date(Date.now() - 2 * 60 * 1000),
+      customerName: 'Sneha Reddy',
+      storeName: 'Koramangala Fresh Mart'
+    },
+    {
+      id: 'order_5',
+      customerId: 'customer_5',
+      storeId: '1',
+      items: [
+        {
+          product: {
+            id: '10',
+            name: 'Chicken',
+            price: 200,
+            unit: 'kg',
+            image: '🍗',
+            storeId: '1'
+          },
+          quantity: 1
+        },
+        {
+          product: {
+            id: '11',
+            name: 'Ginger',
+            price: 80,
+            unit: 'kg',
+            image: '🫚',
+            storeId: '1'
+          },
+          quantity: 0.5
+        },
+        {
+          product: {
+            id: '12',
+            name: 'Garlic',
+            price: 60,
+            unit: 'kg',
+            image: '🧄',
+            storeId: '1'
+          },
+          quantity: 0.25
+        }
+      ],
+      totalAmount: 320,
+      deliveryAddress: '123, Brigade Road, Bangalore - 560001',
+      status: 'ready',
+      paymentStatus: 'paid',
+      paymentMethod: 'card',
+      deliveryTime: 'Ready for pickup',
+      createdAt: new Date(Date.now() - 15 * 60 * 1000), // 15 minutes ago
+      updatedAt: new Date(Date.now() - 5 * 60 * 1000),
+      customerName: 'Vikram Joshi',
+      storeName: 'Koramangala Fresh Mart'
+    },
+    {
+      id: 'order_6',
+      customerId: 'customer_6',
+      storeId: '1',
+      items: [
+        {
+          product: {
+            id: '13',
+            name: 'Paneer',
+            price: 180,
+            unit: 'kg',
+            image: '🧀',
+            storeId: '1'
+          },
+          quantity: 0.5
+        },
+        {
+          product: {
+            id: '14',
+            name: 'Capsicum',
+            price: 50,
+            unit: 'kg',
+            image: '🫑',
+            storeId: '1'
+          },
+          quantity: 1
+        },
+        {
+          product: {
+            id: '15',
+            name: 'Coriander',
+            price: 20,
+            unit: 'bunch',
+            image: '🌿',
+            storeId: '1'
+          },
+          quantity: 2
+        }
+      ],
+      totalAmount: 200,
+      deliveryAddress: '789, Whitefield Main Road, Bangalore - 560066',
+      status: 'out_for_delivery',
+      paymentStatus: 'paid',
+      paymentMethod: 'upi',
+      deliveryTime: 'Out for delivery',
+      createdAt: new Date(Date.now() - 45 * 60 * 1000), // 45 minutes ago
+      updatedAt: new Date(Date.now() - 10 * 60 * 1000),
+      customerName: 'Anita Gupta',
+      storeName: 'Koramangala Fresh Mart'
+    },
+    {
+      id: 'order_7',
+      customerId: 'customer_7',
+      storeId: '1',
+      items: [
+        {
+          product: {
+            id: '16',
+            name: 'Bananas',
+            price: 40,
+            unit: 'dozen',
+            image: '🍌',
+            storeId: '1'
+          },
+          quantity: 1
+        },
+        {
+          product: {
+            id: '17',
+            name: 'Apples',
+            price: 120,
+            unit: 'kg',
+            image: '🍎',
+            storeId: '1'
+          },
+          quantity: 1
+        },
+        {
+          product: {
+            id: '18',
+            name: 'Oranges',
+            price: 60,
+            unit: 'kg',
+            image: '🍊',
+            storeId: '1'
+          },
+          quantity: 1
+        }
+      ],
+      totalAmount: 220,
+      deliveryAddress: '456, Jayanagar 4th Block, Bangalore - 560011',
+      status: 'pending',
+      paymentStatus: 'pending',
+      paymentMethod: 'cash',
+      deliveryTime: '30-35 min',
+      createdAt: new Date(Date.now() - 2 * 60 * 1000), // 2 minutes ago
+      updatedAt: new Date(Date.now() - 2 * 60 * 1000),
+      customerName: 'Ravi Kumar',
+      storeName: 'Koramangala Fresh Mart'
+    },
+    {
+      id: 'order_8',
+      customerId: 'customer_8',
+      storeId: '1',
+      items: [
+        {
+          product: {
+            id: '19',
+            name: 'Bread',
+            price: 25,
+            unit: 'packet',
+            image: '🍞',
+            storeId: '1'
+          },
+          quantity: 2
+        },
+        {
+          product: {
+            id: '20',
+            name: 'Butter',
+            price: 55,
+            unit: 'packet',
+            image: '🧈',
+            storeId: '1'
+          },
+          quantity: 1
+        },
+        {
+          product: {
+            id: '21',
+            name: 'Jam',
+            price: 80,
+            unit: 'bottle',
+            image: '🍓',
+            storeId: '1'
+          },
+          quantity: 1
+        }
+      ],
+      totalAmount: 185,
+      deliveryAddress: '123, Malleswaram 8th Cross, Bangalore - 560003',
+      status: 'accepted',
+      paymentStatus: 'paid',
+      paymentMethod: 'wallet',
+      deliveryTime: '20-25 min',
+      createdAt: new Date(Date.now() - 8 * 60 * 1000), // 8 minutes ago
+      updatedAt: new Date(Date.now() - 5 * 60 * 1000),
+      customerName: 'Meera Iyer',
+      storeName: 'Koramangala Fresh Mart'
     }
   ],
   currentOrder: null,

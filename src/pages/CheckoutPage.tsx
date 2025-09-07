@@ -11,7 +11,6 @@ import { Badge } from '@/components/ui/badge';
 import { useCart, StoreCart } from '@/contexts/CartContext';
 import { useOrder } from '@/contexts/OrderContext';
 import { useToast } from '@/hooks/use-toast';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { getStoreById } from '@/data/stores';
 import DeliveryOptions, { DeliveryOption } from '@/components/DeliveryOptions';
 
@@ -20,7 +19,6 @@ const CheckoutPage: React.FC = () => {
   const { state: cartState, clearCart, getStoreCarts } = useCart();
   const { createOrder } = useOrder();
   const { toast } = useToast();
-  const { t } = useLanguage();
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState('');

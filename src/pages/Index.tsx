@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
-import TranslateButton from "@/components/TranslateButton";
 import kiranaImage from "@/assets/hero-grocery-store.jpg";
 import logoImage from "@/assets/logo.png";
 
@@ -61,48 +60,49 @@ const Index = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Navigation */}
-        <nav className="bg-white/80 backdrop-blur-xl border-b border-white/20 sticky top-0 z-50 shadow-lg shadow-black/5">
+        <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
+            <div className="flex justify-between items-center h-20">
               <Link to="/" className="flex items-center group">
                 <img 
                   src={logoImage} 
                   alt="Kiro Logo" 
-                  className="w-12 h-12 rounded-lg object-cover transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+                  className="w-20 h-20 rounded-lg object-cover transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
                 />
               </Link>
-              <div className="hidden md:flex items-center space-x-8">
-                <a href="#features" className="text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
-                  {t('home.features')}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
-                  {t('home.howItWorks')}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
-                  {t('home.contact')}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-              </div>
-              <div className="flex items-center space-x-4">
-                <LanguageSelector />
-                <TranslateButton />
-                <Link to="/vendor-login">
-                  <Button variant="outline" className="border-2 border-green-600 text-green-600 hover:bg-green-50 hover:border-green-700 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                    🏪 Join as Store Owner
-                  </Button>
-                </Link>
-                <Link to="/delivery-login">
-                  <Button variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                    🚚 Join as Delivery Partner
-                  </Button>
-                </Link>
-                <Link to="/customer-login">
-                  <Button className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white px-6 py-2 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg">
-                    Start Shopping
-                  </Button>
-                </Link>
+              <div className="flex items-center space-x-6">
+                <div className="hidden md:flex items-center space-x-4">
+                  <a href="#features" className="text-xs text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
+                    {t('home.features')}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                  <a href="#how-it-works" className="text-xs text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
+                    {t('home.howItWorks')}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                  <a href="#contact" className="text-xs text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105 relative group">
+                    {t('home.contact')}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <LanguageSelector />
+                  <Link to="/vendor-login">
+                    <Button variant="outline" size="sm" className="border-2 border-green-600 text-green-600 hover:bg-green-50 hover:border-green-700 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg text-xs">
+                      🏪 Store Owner
+                    </Button>
+                  </Link>
+                  <Link to="/delivery-login">
+                    <Button variant="outline" size="sm" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg text-xs">
+                      🚚 Delivery
+                    </Button>
+                  </Link>
+                  <Link to="/customer-login">
+                    <Button size="sm" className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg text-xs">
+                      Start Shopping
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const Index = () => {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/customer-login">
+                  <Link to="/start-shopping">
                     <Button size="lg" className="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl shadow-lg group">
                       Start Shopping
                       <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -241,7 +241,7 @@ const Index = () => {
               Join thousands of families enjoying fresh groceries and premium meat from local stores
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/customer-login">
+              <Link to="/start-shopping">
                 <Button size="lg" className="bg-white/90 backdrop-blur-sm text-green-600 hover:bg-white hover:shadow-2xl px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 group">
                   🛒 Start Shopping Now
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />

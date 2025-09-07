@@ -40,13 +40,13 @@ const ShopDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-between h-20">
+            <div className="flex items-center space-x-3">
               <Link to="/customer">
-                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
+                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900 text-xs">
+                  <ArrowLeft className="w-3 h-3 mr-1" />
                   Back to Stores
                 </Button>
               </Link>
@@ -54,13 +54,13 @@ const ShopDetail = () => {
                 <img 
                   src={logoImage} 
                   alt="Kiro Logo" 
-                  className="w-12 h-12 rounded-lg object-cover"
+                  className="w-20 h-20 rounded-lg object-cover"
                 />
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" className="text-gray-600">
-                <MapPin className="w-4 h-4 mr-2" />
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" size="sm" className="text-gray-600 text-xs">
+                <MapPin className="w-3 h-3 mr-1" />
                 Bangalore, India
               </Button>
               <CartModal />
