@@ -12,6 +12,19 @@ export interface Store {
   phone: string;
   categories: string[];
   image: string;
+  reviews?: Review[];
+}
+
+export interface Review {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar?: string;
+  rating: number;
+  comment: string;
+  date: string;
+  helpful: number;
+  images?: string[];
 }
 
 export const stores: Store[] = [
@@ -28,7 +41,28 @@ export const stores: Store[] = [
     owner: "Rajesh Kumar",
     phone: "+91 98765 43210",
     categories: ["Rice & Grains", "Pulses", "Cooking Oil", "Dairy", "Vegetables", "Spices"],
-    image: "🏪"
+    image: "🏪",
+    reviews: [
+      {
+        id: "review1",
+        userId: "user1",
+        userName: "John Doe",
+        rating: 5,
+        comment: "Great store with a wide variety of products!",
+        date: "2022-01-01",
+        helpful: 10,
+        images: ["image1.jpg", "image2.jpg"]
+      },
+      {
+        id: "review2",
+        userId: "user2",
+        userName: "Jane Doe",
+        rating: 4,
+        comment: "Good store, but the staff could be more friendly.",
+        date: "2022-01-15",
+        helpful: 5
+      }
+    ]
   },
   {
     id: "2",
@@ -43,7 +77,18 @@ export const stores: Store[] = [
     owner: "Priya Sharma",
     phone: "+91 98765 43211",
     categories: ["Dairy", "Vegetables", "Bakery", "Beverages", "Snacks"],
-    image: "🏬"
+    image: "🏬",
+    reviews: [
+      {
+        id: "review3",
+        userId: "user3",
+        userName: "Bob Smith",
+        rating: 4,
+        comment: "Good store with a wide variety of dairy products.",
+        date: "2022-02-01",
+        helpful: 8
+      }
+    ]
   },
   {
     id: "3",
@@ -58,7 +103,18 @@ export const stores: Store[] = [
     owner: "Suresh Reddy",
     phone: "+91 98765 43212",
     categories: ["Rice & Grains", "Pulses", "Cooking Oil", "Personal Care", "Household"],
-    image: "🏪"
+    image: "🏪",
+    reviews: [
+      {
+        id: "review4",
+        userId: "user4",
+        userName: "Alice Johnson",
+        rating: 5,
+        comment: "Great store with a wide variety of products and good customer service.",
+        date: "2022-03-01",
+        helpful: 12
+      }
+    ]
   },
   {
     id: "4",
@@ -73,7 +129,18 @@ export const stores: Store[] = [
     owner: "Anita Singh",
     phone: "+91 98765 43213",
     categories: ["Vegetables", "Dairy", "Bakery", "Beverages", "Snacks"],
-    image: "🏬"
+    image: "🏬",
+    reviews: [
+      {
+        id: "review5",
+        userId: "user5",
+        userName: "Mike Brown",
+        rating: 4,
+        comment: "Good store with a wide variety of products, but the delivery time could be faster.",
+        date: "2022-04-01",
+        helpful: 9
+      }
+    ]
   },
   {
     id: "5",
@@ -88,7 +155,18 @@ export const stores: Store[] = [
     owner: "Vikram Patel",
     phone: "+91 98765 43214",
     categories: ["Rice & Grains", "Pulses", "Cooking Oil", "Spices", "Personal Care"],
-    image: "🏪"
+    image: "🏪",
+    reviews: [
+      {
+        id: "review6",
+        userId: "user6",
+        userName: "Emily Davis",
+        rating: 5,
+        comment: "Great store with a wide variety of products and good customer service.",
+        date: "2022-05-01",
+        helpful: 11
+      }
+    ]
   },
   {
     id: "6",
@@ -103,7 +181,18 @@ export const stores: Store[] = [
     owner: "Meera Iyer",
     phone: "+91 98765 43215",
     categories: ["Dairy", "Vegetables", "Bakery", "Household", "Snacks"],
-    image: "🏬"
+    image: "🏬",
+    reviews: [
+      {
+        id: "review7",
+        userId: "user7",
+        userName: "David Lee",
+        rating: 4,
+        comment: "Good store with a wide variety of products, but the staff could be more friendly.",
+        date: "2022-06-01",
+        helpful: 7
+      }
+    ]
   },
   {
     id: "7",
@@ -118,7 +207,18 @@ export const stores: Store[] = [
     owner: "Kumar Swamy",
     phone: "+91 98765 43216",
     categories: ["Rice & Grains", "Pulses", "Cooking Oil", "Beverages", "Personal Care"],
-    image: "🏪"
+    image: "🏪",
+    reviews: [
+      {
+        id: "review8",
+        userId: "user8",
+        userName: "Sophia Kim",
+        rating: 5,
+        comment: "Great store with a wide variety of products and good customer service.",
+        date: "2022-07-01",
+        helpful: 13
+      }
+    ]
   },
   {
     id: "8",
@@ -133,7 +233,18 @@ export const stores: Store[] = [
     owner: "Deepa Nair",
     phone: "+91 98765 43217",
     categories: ["Vegetables", "Dairy", "Bakery", "Household", "Snacks"],
-    image: "🏬"
+    image: "🏬",
+    reviews: [
+      {
+        id: "review9",
+        userId: "user9",
+        userName: "Oliver Martin",
+        rating: 4,
+        comment: "Good store with a wide variety of products, but the delivery time could be faster.",
+        date: "2022-08-01",
+        helpful: 8
+      }
+    ]
   },
   {
     id: "9",
@@ -148,7 +259,18 @@ export const stores: Store[] = [
     owner: "More Retail Ltd",
     phone: "+91 98765 43218",
     categories: ["Rice & Grains", "Pulses", "Cooking Oil", "Dairy", "Vegetables", "Spices", "Bakery", "Beverages", "Snacks", "Frozen Foods", "Household"],
-    image: "🏪"
+    image: "🏪",
+    reviews: [
+      {
+        id: "review10",
+        userId: "user10",
+        userName: "Ava Chen",
+        rating: 5,
+        comment: "Great store with a wide variety of products and good customer service.",
+        date: "2022-09-01",
+        helpful: 14
+      }
+    ]
   },
   {
     id: "10",
@@ -163,7 +285,18 @@ export const stores: Store[] = [
     owner: "Reliance Retail",
     phone: "+91 98765 43219",
     categories: ["Rice & Grains", "Pulses", "Cooking Oil", "Dairy", "Vegetables", "Spices", "Bakery", "Beverages", "Snacks", "Frozen Foods", "Household"],
-    image: "🏪"
+    image: "🏪",
+    reviews: [
+      {
+        id: "review11",
+        userId: "user11",
+        userName: "Liam Hall",
+        rating: 4,
+        comment: "Good store with a wide variety of products, but the staff could be more friendly.",
+        date: "2022-10-01",
+        helpful: 6
+      }
+    ]
   },
   {
     id: "11",
@@ -178,7 +311,18 @@ export const stores: Store[] = [
     owner: "Ahmed Khan",
     phone: "+91 98765 43220",
     categories: ["Chicken", "Mutton", "Fish", "Seafood", "Eggs"],
-    image: "🥩"
+    image: "🥩",
+    reviews: [
+      {
+        id: "review12",
+        userId: "user12",
+        userName: "Noah Patel",
+        rating: 5,
+        comment: "Great store with a wide variety of meat products and good customer service.",
+        date: "2022-11-01",
+        helpful: 15
+      }
+    ]
   },
   {
     id: "12",
@@ -193,7 +337,18 @@ export const stores: Store[] = [
     owner: "Ravi Kumar",
     phone: "+91 98765 43221",
     categories: ["Chicken", "Mutton", "Fish", "Seafood", "Eggs"],
-    image: "🥩"
+    image: "🥩",
+    reviews: [
+      {
+        id: "review13",
+        userId: "user13",
+        userName: "Ethan Kim",
+        rating: 4,
+        comment: "Good store with a wide variety of meat products, but the delivery time could be faster.",
+        date: "2022-12-01",
+        helpful: 9
+      }
+    ]
   }
 ];
 

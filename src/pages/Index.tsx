@@ -142,6 +142,11 @@ const Index = () => {
                       🚚 {t('home.joinAsDelivery')}
                     </Button>
                   </Link>
+                  <Link to="/price-prediction">
+                    <Button size="lg" variant="outline" className="border-2 border-purple-600 text-purple-600 hover:bg-purple-50 hover:border-purple-700 px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                      📊 Price Prediction Demo
+                    </Button>
+                  </Link>
                 </div>
 
                 {/* Stats */}

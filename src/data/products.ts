@@ -2,10 +2,15 @@ export interface Product {
   id: string;
   name: string;
   price: number;
+  mrp?: number;
+  salePrice?: number;
   category: string;
+  subCategory?: string;
+  brand?: string;
+  type?: string;
   image: string;
   description: string;
-  unit: string;
+  unit?: string;
   stock: number;
   rating: number;
   storeId: string;
@@ -16,11 +21,16 @@ export const products: Product[] = [
   // Rice & Grains
   {
     id: "1",
-    name: "Basmati Rice 1kg",
-    price: 120,
+    name: "Basmati Rice Premium 1kg",
+    price: 118,
+    mrp: 150,
+    salePrice: 120,
     category: "Rice & Grains",
-    image: "🌾",
-    description: "Premium quality basmati rice",
+    subCategory: "Basmati Rice",
+    brand: "Tata",
+    type: "Rice",
+    image: "🍚",
+    description: "Premium quality basmati rice with long grains and aromatic fragrance",
     unit: "kg",
     stock: 50,
     rating: 4.5,
@@ -28,48 +38,81 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "2",
-    name: "Sona Masoori Rice 1kg",
-    price: 85,
+    id: "2", 
+    name: "Brown Rice Organic 1kg",
+    price: 95,
+    mrp: 120,
+    salePrice: 95,
     category: "Rice & Grains",
+    subCategory: "Brown Rice",
+    brand: "Organic India",
+    type: "Rice",
     image: "🌾",
-    description: "Medium grain rice perfect for daily cooking",
+    description: "Nutritious organic brown rice rich in fiber and minerals",
     unit: "kg",
     stock: 30,
-    rating: 4.2,
-    storeId: "3",
+    rating: 4.3,
+    storeId: "1",
     isAvailable: true
   },
   {
     id: "3",
-    name: "Wheat Flour 1kg",
-    price: 45,
-    category: "Rice & Grains",
-    image: "🌾",
-    description: "Fresh wheat flour for rotis and breads",
-    unit: "kg",
+    name: "Toor Dal 1kg",
+    price: 148,
+    mrp: 180,
+    salePrice: 150,
+    category: "Pulses",
+    subCategory: "Toor Dal",
+    brand: "Fortune",
+    type: "Dal",
+    image: "🟡",
+    description: "High quality toor dal, rich in protein and essential nutrients",
+    unit: "kg", 
+    stock: 40,
+    rating: 4.4,
+    storeId: "1",
+    isAvailable: true
+  },
+  {
+    id: "4",
+    name: "Fresh Milk 1L",
+    price: 50,
+    mrp: 52,
+    salePrice: 50,
+    category: "Dairy",
+    subCategory: "Milk",
+    brand: "Amul",
+    type: "Fresh Milk",
+    image: "🥛",
+    description: "Fresh cow milk, rich in calcium and proteins",
+    unit: "L",
     stock: 25,
-    rating: 4.3,
-    storeId: "5",
+    rating: 4.6,
+    storeId: "1", 
+    isAvailable: true
+  },
+  {
+    id: "5",
+    name: "Sunflower Oil 1L",
+    price: 148,
+    mrp: 180,
+    salePrice: 150,
+    category: "Cooking Oil",
+    subCategory: "Sunflower Oil",
+    brand: "Fortune",
+    type: "Cooking Oil",
+    image: "🌻",
+    description: "Pure sunflower oil for healthy cooking and frying",
+    unit: "L",
+    stock: 35,
+    rating: 4.2,
+    storeId: "1",
     isAvailable: true
   },
 
   // Pulses & Lentils
   {
-    id: "4",
-    name: "Toor Dal 500g",
-    price: 80,
-    category: "Pulses",
-    image: "🫘",
-    description: "Split pigeon peas for delicious dal",
-    unit: "g",
-    stock: 40,
-    rating: 4.4,
-    storeId: "3",
-    isAvailable: true
-  },
-  {
-    id: "5",
+    id: "6",
     name: "Moong Dal 500g",
     price: 75,
     category: "Pulses",
@@ -82,7 +125,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "6",
+    id: "7",
     name: "Chana Dal 500g",
     price: 90,
     category: "Pulses",
@@ -96,19 +139,6 @@ export const products: Product[] = [
   },
 
   // Cooking Oil
-  {
-    id: "7",
-    name: "Sunflower Oil 1L",
-    price: 150,
-    category: "Cooking Oil",
-    image: "🫒",
-    description: "Pure sunflower oil for cooking",
-    unit: "L",
-    stock: 20,
-    rating: 4.1,
-    storeId: "3",
-    isAvailable: true
-  },
   {
     id: "8",
     name: "Mustard Oil 1L",
@@ -126,19 +156,6 @@ export const products: Product[] = [
   // Dairy Products
   {
     id: "9",
-    name: "Fresh Milk 1L",
-    price: 60,
-    category: "Dairy",
-    image: "🥛",
-    description: "Fresh cow milk",
-    unit: "L",
-    stock: 25,
-    rating: 4.6,
-    storeId: "2",
-    isAvailable: true
-  },
-  {
-    id: "10",
     name: "Curd 500g",
     price: 35,
     category: "Dairy",
@@ -151,7 +168,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "11",
+    id: "10",
     name: "Butter 100g",
     price: 55,
     category: "Dairy",
@@ -164,7 +181,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "12",
+    id: "11",
     name: "Paneer 200g",
     price: 80,
     category: "Dairy",
@@ -179,7 +196,7 @@ export const products: Product[] = [
 
   // Vegetables
   {
-    id: "13",
+    id: "12",
     name: "Onions 1kg",
     price: 40,
     category: "Vegetables",
@@ -192,7 +209,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "14",
+    id: "13",
     name: "Tomatoes 1kg",
     price: 50,
     category: "Vegetables",
@@ -205,7 +222,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "15",
+    id: "14",
     name: "Potatoes 1kg",
     price: 35,
     category: "Vegetables",
@@ -218,7 +235,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "16",
+    id: "15",
     name: "Carrots 500g",
     price: 30,
     category: "Vegetables",
@@ -233,7 +250,7 @@ export const products: Product[] = [
 
   // Bakery
   {
-    id: "17",
+    id: "16",
     name: "Bread Loaf",
     price: 25,
     category: "Bakery",
@@ -246,7 +263,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "18",
+    id: "17",
     name: "Biscuits Pack",
     price: 20,
     category: "Bakery",
@@ -261,7 +278,7 @@ export const products: Product[] = [
 
   // Spices
   {
-    id: "19",
+    id: "18",
     name: "Turmeric Powder 100g",
     price: 25,
     category: "Spices",
@@ -274,7 +291,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "20",
+    id: "19",
     name: "Red Chili Powder 100g",
     price: 30,
     category: "Spices",
@@ -287,7 +304,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "21",
+    id: "20",
     name: "Cumin Seeds 100g",
     price: 40,
     category: "Spices",
@@ -302,7 +319,7 @@ export const products: Product[] = [
 
   // Beverages
   {
-    id: "22",
+    id: "21",
     name: "Tea Leaves 250g",
     price: 120,
     category: "Beverages",
@@ -315,7 +332,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "23",
+    id: "22",
     name: "Coffee Powder 200g",
     price: 180,
     category: "Beverages",
@@ -328,7 +345,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "24",
+    id: "23",
     name: "Sugar 1kg",
     price: 45,
     category: "Beverages",
@@ -343,7 +360,7 @@ export const products: Product[] = [
 
   // Snacks
   {
-    id: "25",
+    id: "24",
     name: "Namkeen Mix 200g",
     price: 35,
     category: "Snacks",
@@ -356,7 +373,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "26",
+    id: "25",
     name: "Chips Pack",
     price: 20,
     category: "Snacks",
@@ -371,7 +388,7 @@ export const products: Product[] = [
 
   // Personal Care
   {
-    id: "27",
+    id: "26",
     name: "Soap Bar",
     price: 25,
     category: "Personal Care",
@@ -384,7 +401,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "28",
+    id: "27",
     name: "Shampoo 200ml",
     price: 80,
     category: "Personal Care",
@@ -399,7 +416,7 @@ export const products: Product[] = [
 
   // Household
   {
-    id: "29",
+    id: "28",
     name: "Detergent Powder 1kg",
     price: 120,
     category: "Household",
@@ -412,7 +429,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "30",
+    id: "29",
     name: "Dish Soap 500ml",
     price: 60,
     category: "Household",
@@ -426,7 +443,7 @@ export const products: Product[] = [
   },
   // Meat Products - Chicken
   {
-    id: "31",
+    id: "30",
     name: "Fresh Chicken 250g",
     price: 75,
     category: "Chicken",
@@ -439,7 +456,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "32",
+    id: "31",
     name: "Fresh Chicken 500g",
     price: 140,
     category: "Chicken",
@@ -452,7 +469,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "33",
+    id: "32",
     name: "Fresh Chicken 1kg",
     price: 280,
     category: "Chicken",
@@ -465,7 +482,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "34",
+    id: "33",
     name: "Fresh Chicken 1.5kg",
     price: 420,
     category: "Chicken",
@@ -478,7 +495,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "35",
+    id: "34",
     name: "Fresh Chicken 2kg",
     price: 560,
     category: "Chicken",
@@ -492,7 +509,7 @@ export const products: Product[] = [
   },
   // Meat Products - Mutton
   {
-    id: "36",
+    id: "35",
     name: "Fresh Mutton 250g",
     price: 125,
     category: "Mutton",
@@ -505,7 +522,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "37",
+    id: "36",
     name: "Fresh Mutton 500g",
     price: 240,
     category: "Mutton",
@@ -518,7 +535,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "38",
+    id: "37",
     name: "Fresh Mutton 1kg",
     price: 480,
     category: "Mutton",
@@ -531,7 +548,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "39",
+    id: "38",
     name: "Fresh Mutton 1.5kg",
     price: 720,
     category: "Mutton",
@@ -544,7 +561,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "40",
+    id: "39",
     name: "Fresh Mutton 2kg",
     price: 960,
     category: "Mutton",
@@ -558,7 +575,7 @@ export const products: Product[] = [
   },
   // Meat Products - Fish
   {
-    id: "41",
+    id: "40",
     name: "Fresh Fish 250g",
     price: 100,
     category: "Fish",
@@ -571,7 +588,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "42",
+    id: "41",
     name: "Fresh Fish 500g",
     price: 190,
     category: "Fish",
@@ -584,7 +601,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "43",
+    id: "42",
     name: "Fresh Fish 1kg",
     price: 380,
     category: "Fish",
@@ -597,7 +614,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "44",
+    id: "43",
     name: "Fresh Fish 1.5kg",
     price: 570,
     category: "Fish",
@@ -610,7 +627,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "45",
+    id: "44",
     name: "Fresh Fish 2kg",
     price: 760,
     category: "Fish",
@@ -624,7 +641,7 @@ export const products: Product[] = [
   },
   // Meat Products - Beef
   {
-    id: "46",
+    id: "45",
     name: "Fresh Beef 250g",
     price: 110,
     category: "Beef",
@@ -637,7 +654,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "47",
+    id: "46",
     name: "Fresh Beef 500g",
     price: 210,
     category: "Beef",
@@ -650,7 +667,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "48",
+    id: "47",
     name: "Fresh Beef 1kg",
     price: 420,
     category: "Beef",
@@ -663,7 +680,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "49",
+    id: "48",
     name: "Fresh Beef 1.5kg",
     price: 630,
     category: "Beef",
@@ -676,7 +693,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "50",
+    id: "49",
     name: "Fresh Beef 2kg",
     price: 840,
     category: "Beef",
@@ -690,7 +707,7 @@ export const products: Product[] = [
   },
   // Meat Products - Pork
   {
-    id: "51",
+    id: "50",
     name: "Fresh Pork 250g",
     price: 95,
     category: "Pork",
@@ -703,7 +720,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "52",
+    id: "51",
     name: "Fresh Pork 500g",
     price: 180,
     category: "Pork",
@@ -716,7 +733,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "53",
+    id: "52",
     name: "Fresh Pork 1kg",
     price: 360,
     category: "Pork",
@@ -729,7 +746,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "54",
+    id: "53",
     name: "Fresh Pork 1.5kg",
     price: 540,
     category: "Pork",
@@ -742,7 +759,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "55",
+    id: "54",
     name: "Fresh Pork 2kg",
     price: 720,
     category: "Pork",
@@ -756,7 +773,7 @@ export const products: Product[] = [
   },
   // Supermarket Products - Store 8 (Electronic City Grocery)
   {
-    id: "56",
+    id: "55",
     name: "Basmati Rice 1kg",
     price: 120,
     category: "Rice & Grains",
@@ -769,7 +786,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "57",
+    id: "56",
     name: "Toor Dal 1kg",
     price: 80,
     category: "Pulses",
@@ -782,7 +799,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "58",
+    id: "57",
     name: "Sunflower Oil 1L",
     price: 150,
     category: "Cooking Oil",
@@ -795,7 +812,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "59",
+    id: "58",
     name: "Milk 1L",
     price: 25,
     category: "Dairy",
@@ -808,7 +825,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "60",
+    id: "59",
     name: "Onions 1kg",
     price: 30,
     category: "Vegetables",
@@ -822,7 +839,7 @@ export const products: Product[] = [
   },
   // Supermarket Products - Store 9 (More Supermarket)
   {
-    id: "61",
+    id: "60",
     name: "Basmati Rice 1kg",
     price: 118,
     category: "Rice & Grains",
@@ -835,7 +852,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "62",
+    id: "61",
     name: "Sona Masoori Rice 1kg",
     price: 85,
     category: "Rice & Grains",
@@ -848,7 +865,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "63",
+    id: "62",
     name: "Wheat Flour 1kg",
     price: 45,
     category: "Rice & Grains",
@@ -861,7 +878,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "64",
+    id: "63",
     name: "Toor Dal 1kg",
     price: 80,
     category: "Pulses",
@@ -874,7 +891,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "65",
+    id: "64",
     name: "Moong Dal 1kg",
     price: 90,
     category: "Pulses",
@@ -887,7 +904,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "66",
+    id: "65",
     name: "Chana Dal 1kg",
     price: 85,
     category: "Pulses",
@@ -900,7 +917,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "67",
+    id: "66",
     name: "Sunflower Oil 1L",
     price: 150,
     category: "Cooking Oil",
@@ -913,7 +930,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "68",
+    id: "67",
     name: "Coconut Oil 1L",
     price: 180,
     category: "Cooking Oil",
@@ -926,7 +943,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "69",
+    id: "68",
     name: "Milk 1L",
     price: 25,
     category: "Dairy",
@@ -939,7 +956,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "70",
+    id: "69",
     name: "Curd 500g",
     price: 30,
     category: "Dairy",
@@ -952,7 +969,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "71",
+    id: "70",
     name: "Butter 100g",
     price: 50,
     category: "Dairy",
@@ -965,7 +982,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "72",
+    id: "71",
     name: "Onions 1kg",
     price: 30,
     category: "Vegetables",
@@ -978,7 +995,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "73",
+    id: "72",
     name: "Tomatoes 1kg",
     price: 40,
     category: "Vegetables",
@@ -991,7 +1008,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "74",
+    id: "73",
     name: "Potatoes 1kg",
     price: 25,
     category: "Vegetables",
@@ -1004,7 +1021,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "75",
+    id: "74",
     name: "Bread Loaf",
     price: 35,
     category: "Bakery",
@@ -1017,7 +1034,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "76",
+    id: "75",
     name: "Biscuits 200g",
     price: 25,
     category: "Bakery",
@@ -1030,7 +1047,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "77",
+    id: "76",
     name: "Turmeric Powder 100g",
     price: 20,
     category: "Spices",
@@ -1043,7 +1060,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "78",
+    id: "77",
     name: "Red Chili Powder 100g",
     price: 30,
     category: "Spices",
@@ -1056,7 +1073,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "79",
+    id: "78",
     name: "Tea 250g",
     price: 80,
     category: "Beverages",
@@ -1069,7 +1086,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "80",
+    id: "79",
     name: "Coffee 200g",
     price: 120,
     category: "Beverages",
@@ -1082,7 +1099,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "81",
+    id: "80",
     name: "Namkeen 200g",
     price: 40,
     category: "Snacks",
@@ -1095,7 +1112,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "82",
+    id: "81",
     name: "Shampoo 200ml",
     price: 80,
     category: "Personal Care",
@@ -1108,7 +1125,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "83",
+    id: "82",
     name: "Detergent Powder 1kg",
     price: 120,
     category: "Household",
@@ -1122,7 +1139,7 @@ export const products: Product[] = [
   },
   // Supermarket Products - Store 10 (Reliance Fresh)
   {
-    id: "84",
+    id: "83",
     name: "Basmati Rice 1kg",
     price: 115,
     category: "Rice & Grains",
@@ -1135,7 +1152,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "85",
+    id: "84",
     name: "Sona Masoori Rice 1kg",
     price: 82,
     category: "Rice & Grains",
@@ -1148,7 +1165,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "86",
+    id: "85",
     name: "Wheat Flour 1kg",
     price: 42,
     category: "Rice & Grains",
@@ -1161,7 +1178,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "87",
+    id: "86",
     name: "Toor Dal 1kg",
     price: 78,
     category: "Pulses",
@@ -1174,7 +1191,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "88",
+    id: "87",
     name: "Moong Dal 1kg",
     price: 88,
     category: "Pulses",
@@ -1187,7 +1204,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "89",
+    id: "88",
     name: "Chana Dal 1kg",
     price: 82,
     category: "Pulses",
@@ -1200,7 +1217,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "90",
+    id: "89",
     name: "Sunflower Oil 1L",
     price: 145,
     category: "Cooking Oil",
@@ -1213,7 +1230,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "91",
+    id: "90",
     name: "Coconut Oil 1L",
     price: 175,
     category: "Cooking Oil",
@@ -1226,7 +1243,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "92",
+    id: "91",
     name: "Milk 1L",
     price: 24,
     category: "Dairy",
@@ -1239,7 +1256,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "93",
+    id: "92",
     name: "Curd 500g",
     price: 28,
     category: "Dairy",
@@ -1252,7 +1269,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "94",
+    id: "93",
     name: "Butter 100g",
     price: 48,
     category: "Dairy",
@@ -1265,7 +1282,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "95",
+    id: "94",
     name: "Onions 1kg",
     price: 28,
     category: "Vegetables",
@@ -1278,7 +1295,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "96",
+    id: "95",
     name: "Tomatoes 1kg",
     price: 38,
     category: "Vegetables",
@@ -1291,7 +1308,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "97",
+    id: "96",
     name: "Potatoes 1kg",
     price: 22,
     category: "Vegetables",
@@ -1304,7 +1321,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "98",
+    id: "97",
     name: "Bread Loaf",
     price: 32,
     category: "Bakery",
@@ -1317,7 +1334,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "99",
+    id: "98",
     name: "Biscuits 200g",
     price: 22,
     category: "Bakery",
@@ -1330,7 +1347,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "100",
+    id: "99",
     name: "Turmeric Powder 100g",
     price: 18,
     category: "Spices",
@@ -1343,7 +1360,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "101",
+    id: "100",
     name: "Red Chili Powder 100g",
     price: 28,
     category: "Spices",
@@ -1356,7 +1373,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "102",
+    id: "101",
     name: "Tea 250g",
     price: 75,
     category: "Beverages",
@@ -1369,7 +1386,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "103",
+    id: "102",
     name: "Coffee 200g",
     price: 115,
     category: "Beverages",
@@ -1382,7 +1399,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "104",
+    id: "103",
     name: "Namkeen 200g",
     price: 35,
     category: "Snacks",
@@ -1395,7 +1412,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "105",
+    id: "104",
     name: "Shampoo 200ml",
     price: 75,
     category: "Personal Care",
@@ -1408,7 +1425,7 @@ export const products: Product[] = [
     isAvailable: true
   },
   {
-    id: "106",
+    id: "105",
     name: "Detergent Powder 1kg",
     price: 115,
     category: "Household",

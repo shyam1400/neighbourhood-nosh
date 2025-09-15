@@ -9,9 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 import { toast } from './ui/use-toast';
-import { Product, products as initialProducts } from '../data/products';
+import { Product, products as initialProducts, PricePrediction } from '../data/products';
 import { Store, stores } from '../data/stores';
-import { Plus, Edit, Trash2, Package, AlertTriangle, Search, Filter } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, AlertTriangle, Search, Filter, TrendingUp, Star, ThumbsUp, ThumbsDown, Loader2 } from 'lucide-react';
 
 interface InventoryManagerProps {
   storeId: string;
@@ -35,10 +35,26 @@ export const InventoryManager: React.FC<InventoryManagerProps> = ({ storeId }) =
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   
+  // Price prediction states
+  const [predictions, setPredictions] = useState<Record<string, PricePrediction>>({});
+  const [predictionLoading, setPredictionLoading] = useState<Record<string, boolean>>({});
+  const [showPredictionDialog, setShowPredictionDialog] = useState(false);
+  const [selectedProductForPrediction, setSelectedProductForPrediction] = useState<Product | null>(null);
+  
+  // Feedback system states
+  const [feedbacks, setFeedbacks] = useState<Record<string, { helpful: boolean; comment: string }>>({});
+  const [showFeedbackDialog, setShowFeedbackDialog] = useState(false);
+  const [feedbackProductId, setFeedbackProductId] = useState<string>('');
+
   const [newProduct, setNewProduct] = useState({
     name: '',
     price: '',
+    mrp: '',
+    salePrice: '',
     category: '',
+    subCategory: '',
+    brand: '',
+    type: '',
     image: '📦',
     description: '',
     unit: '',
@@ -114,7 +130,12 @@ export const InventoryManager: React.FC<InventoryManagerProps> = ({ storeId }) =
     setNewProduct({
       name: '',
       price: '',
+      mrp: '',
+      salePrice: '',
       category: '',
+      subCategory: '',
+      brand: '',
+      type: '',
       image: '📦',
       description: '',
       unit: '',
@@ -192,6 +213,43 @@ export const InventoryManager: React.FC<InventoryManagerProps> = ({ storeId }) =
 
   const lowStockCount = products.filter(p => p.stock <= 10 && p.stock > 0).length;
   const outOfStockCount = products.filter(p => p.stock === 0 || !p.isAvailable).length;
+
+  const predictPrice = (product: Product) => {
+    setPredictionLoading(prev => ({ ...prev, [product.id]: true }));
+    // Simulate prediction API call
+    setTimeout(() => {
+      const prediction: PricePrediction = {
+        predictedMRP: product.price * 1.2,
+        predictedSalePrice: product.price * 0.8,
+        finalPrice: product.price * 0.9,
+        confidence: 0.85,
+        pricingLogicApplied: {
+          reduction: 0.1
+        }
+      };
+      setPredictions(prev => ({ ...prev, [product.id]: prediction }));
+      setPredictionLoading(prev => ({ ...prev, [product.id]: false }));
+    }, 2000);
+  };
+
+  const applyPredictedPrice = (productId: string) => {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+      const updatedProduct = { ...product, price: predictions[productId].finalPrice };
+      setProducts(prev => prev.map(p => p.id === productId ? updatedProduct : p));
+      setPredictions(prev => ({ ...prev, [productId]: null }));
+    }
+  };
+
+  const openFeedbackDialog = (productId: string) => {
+    setFeedbackProductId(productId);
+    setShowFeedbackDialog(true);
+  };
+
+  const handleFeedback = (helpful: boolean, comment: string) => {
+    setFeedbacks(prev => ({ ...prev, [feedbackProductId]: { helpful, comment } }));
+    setShowFeedbackDialog(false);
+  };
 
   return (
     <div className="space-y-6">
@@ -281,41 +339,28 @@ export const InventoryManager: React.FC<InventoryManagerProps> = ({ storeId }) =
                   <DialogTitle>Add New Product</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="name">Product Name *</Label>
-                    <Input
-                      id="name"
-                      value={newProduct.name}
-                      onChange={(e) => setNewProduct(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="Enter product name"
-                    />
-                  </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="price">Price (₹) *</Label>
+                      <Label htmlFor="name">Product Name</Label>
                       <Input
-                        id="price"
-                        type="number"
-                        value={newProduct.price}
-                        onChange={(e) => setNewProduct(prev => ({ ...prev, price: e.target.value }))}
-                        placeholder="0.00"
+                        id="name"
+                        value={newProduct.name}
+                        onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                        placeholder="Enter product name"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="stock">Stock *</Label>
+                      <Label htmlFor="brand">Brand</Label>
                       <Input
-                        id="stock"
-                        type="number"
-                        value={newProduct.stock}
-                        onChange={(e) => setNewProduct(prev => ({ ...prev, stock: e.target.value }))}
-                        placeholder="0"
+                        id="brand"
+                        value={newProduct.brand}
+                        onChange={(e) => setNewProduct({ ...newProduct, brand: e.target.value })}
+                        placeholder="Enter brand name"
                       />
                     </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="category">Category *</Label>
-                      <Select value={newProduct.category} onValueChange={(value) => setNewProduct(prev => ({ ...prev, category: value }))}>
+                      <Label htmlFor="category">Category</Label>
+                      <Select value={newProduct.category} onValueChange={(value) => setNewProduct({ ...newProduct, category: value })}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
@@ -327,8 +372,46 @@ export const InventoryManager: React.FC<InventoryManagerProps> = ({ storeId }) =
                       </Select>
                     </div>
                     <div>
-                      <Label htmlFor="unit">Unit *</Label>
-                      <Select value={newProduct.unit} onValueChange={(value) => setNewProduct(prev => ({ ...prev, unit: value }))}>
+                      <Label htmlFor="subCategory">Sub Category</Label>
+                      <Input
+                        id="subCategory"
+                        value={newProduct.subCategory}
+                        onChange={(e) => setNewProduct({ ...newProduct, subCategory: e.target.value })}
+                        placeholder="Enter sub category"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="mrp">MRP (₹)</Label>
+                      <Input
+                        id="mrp"
+                        type="number"
+                        value={newProduct.mrp}
+                        onChange={(e) => setNewProduct({ ...newProduct, mrp: e.target.value })}
+                        placeholder="Enter MRP"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="salePrice">Sale Price (₹)</Label>
+                      <Input
+                        id="salePrice"
+                        type="number"
+                        value={newProduct.salePrice}
+                        onChange={(e) => setNewProduct({ ...newProduct, salePrice: parseFloat(e.target.value) || 0 })}
+                        placeholder="Enter sale price"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="type">Product Type</Label>
+                      <Input
+                        id="type"
+                        value={newProduct.type}
+                        onChange={(e) => setNewProduct({ ...newProduct, type: e.target.value })}
+                        placeholder="Enter product type"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="unit">Unit</Label>
+                      <Select value={newProduct.unit} onValueChange={(value) => setNewProduct({ ...newProduct, unit: value })}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select unit" />
                         </SelectTrigger>
@@ -339,24 +422,37 @@ export const InventoryManager: React.FC<InventoryManagerProps> = ({ storeId }) =
                         </SelectContent>
                       </Select>
                     </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="image">Emoji</Label>
-                    <Input
-                      id="image"
-                      value={newProduct.image}
-                      onChange={(e) => setNewProduct(prev => ({ ...prev, image: e.target.value }))}
-                      placeholder="📦"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="description">Description</Label>
-                    <Textarea
-                      id="description"
-                      value={newProduct.description}
-                      onChange={(e) => setNewProduct(prev => ({ ...prev, description: e.target.value }))}
-                      placeholder="Enter product description"
-                    />
+                    <div>
+                      <Label htmlFor="stock">Stock Quantity</Label>
+                      <Input
+                        id="stock"
+                        type="number"
+                        value={newProduct.stock}
+                        onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
+                        placeholder="Enter stock quantity"
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <Label htmlFor="description">Description</Label>
+                      <Textarea
+                        id="description"
+                        value={newProduct.description}
+                        onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+                        placeholder="Enter product description"
+                        rows={3}
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <Button 
+                        onClick={() => {}} 
+                        variant="outline" 
+                        className="w-full mb-4"
+                        disabled={!newProduct.name || !newProduct.category}
+                      >
+                        <TrendingUp className="mr-2 h-4 w-4" />
+                        Predict Optimal Pricing
+                      </Button>
+                    </div>
                   </div>
                   <div className="flex gap-2">
                     <Button onClick={handleAddProduct} className="flex-1">Add Product</Button>
@@ -484,27 +580,131 @@ export const InventoryManager: React.FC<InventoryManagerProps> = ({ storeId }) =
                       </DialogContent>
                     </Dialog>
 
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button size="sm" variant="destructive">
-                          <Trash2 className="h-4 w-4" />
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setEditingProduct(product);
+                          setIsEditDialogOpen(true);
+                        }}
+                      >
+                        <Edit className="w-4 h-4 mr-1" />
+                        Edit
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => predictPrice(product)}
+                        disabled={predictionLoading[product.id]}
+                      >
+                        {predictionLoading[product.id] ? (
+                          <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                        ) : (
+                          <TrendingUp className="w-4 h-4 mr-1" />
+                        )}
+                        Predict Price
+                      </Button>
+
+                      {predictions[product.id] && (
+                        <Button
+                          size="sm"
+                          variant="default"
+                          onClick={() => applyPredictedPrice(product.id)}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          Apply ₹{predictions[product.id].finalPrice}
                         </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Delete Product</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Are you sure you want to delete "{product.name}"? This action cannot be undone.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => handleDeleteProduct(product.id)}>
+                      )}
+
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => openFeedbackDialog(product.id)}
+                      >
+                        <Star className="w-4 h-4 mr-1" />
+                        Feedback
+                      </Button>
+
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="sm" variant="destructive">
+                            <Trash2 className="w-4 h-4 mr-1" />
                             Delete
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Product</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete "{product.name}"? This action cannot be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDeleteProduct(product.id)}>
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+
+                    {/* Price Prediction Results */}
+                    {predictions[product.id] && (
+                      <div className="mt-4 p-3 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-semibold text-gray-700">Prediction Results</span>
+                          <Badge className="bg-green-500 text-white text-xs">
+                            {predictions[product.id].confidence >= 0.8 ? 'High' : 
+                             predictions[product.id].confidence >= 0.6 ? 'Medium' : 'Low'} Confidence
+                          </Badge>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-2 text-center text-sm">
+                          <div className="bg-white p-2 rounded">
+                            <div className="text-xs text-gray-500">Sale Price</div>
+                            <div className="font-bold text-gray-700 line-through">₹{predictions[product.id].predictedSalePrice}</div>
+                          </div>
+                          <div className="bg-white p-2 rounded border-2 border-purple-200">
+                            <div className="text-xs text-purple-600 font-medium">Final Price</div>
+                            <div className="font-bold text-purple-600">₹{predictions[product.id].finalPrice}</div>
+                          </div>
+                        </div>
+
+                        <div className="mt-2 text-xs">
+                          {predictions[product.id].pricingLogicApplied.reduction > 0 ? (
+                            <div className="text-green-700 bg-green-100 p-1 rounded text-center">
+                              ₹2 reduction applied (diff ≥ ₹5)
+                            </div>
+                          ) : (
+                            <div className="text-orange-700 bg-orange-100 p-1 rounded text-center">
+                              No reduction (diff &lt; ₹5)
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Feedback Display */}
+                    {feedbacks[product.id] && (
+                      <div className="mt-3 p-2 bg-gray-50 rounded border">
+                        <div className="flex items-center gap-2 text-sm">
+                          {feedbacks[product.id].helpful ? (
+                            <ThumbsUp className="w-4 h-4 text-green-600" />
+                          ) : (
+                            <ThumbsDown className="w-4 h-4 text-red-600" />
+                          )}
+                          <span className="text-gray-600">
+                            {feedbacks[product.id].helpful ? 'Helpful' : 'Not Helpful'}
+                          </span>
+                        </div>
+                        {feedbacks[product.id].comment && (
+                          <p className="text-xs text-gray-600 mt-1">"{feedbacks[product.id].comment}"</p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </CardContent>

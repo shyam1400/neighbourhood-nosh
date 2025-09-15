@@ -34,7 +34,8 @@ const ShopDetail = () => {
     distance: "N/A",
     image: heroImage,
     isOpen: false,
-    description: "Store information not available."
+    description: "Store information not available.",
+    reviews: []
   };
 
   const products = getProductsByStore(id || '1');
@@ -61,7 +62,7 @@ const ShopDetail = () => {
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <Button variant="outline" size="sm" className="text-gray-600 text-xs">
+              <Button variant="outline" size="sm" className="text-gray-600">
                 <MapPin className="w-3 h-3 mr-1" />
                 Bangalore, India
               </Button>
@@ -131,8 +132,8 @@ const ShopDetail = () => {
           <Tabs defaultValue="products" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="products">Products</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews</TabsTrigger>
               <TabsTrigger value="location">Location</TabsTrigger>
-              <TabsTrigger value="info">Store Info</TabsTrigger>
             </TabsList>
             
             <TabsContent value="products" className="mt-6">
@@ -186,6 +187,84 @@ const ShopDetail = () => {
                     </Card>
                   );
                 })}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="reviews" className="mt-6">
+              <div className="space-y-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-xl font-semibold">Customer Reviews</h3>
+                      <div className="flex items-center gap-2">
+                        <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                        <span className="text-lg font-semibold">{store.rating}</span>
+                        <span className="text-gray-500">({store.reviews?.length || 0} reviews)</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-6">
+                      {store.reviews && store.reviews.length > 0 ? (
+                        store.reviews.map((review) => (
+                          <div key={review.id} className="border-b border-gray-200 pb-6 last:border-b-0">
+                            <div className="flex items-start gap-4">
+                              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold">
+                                {review.userName.charAt(0).toUpperCase()}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-2">
+                                  <div>
+                                    <h4 className="font-semibold text-gray-900">{review.userName}</h4>
+                                    <div className="flex items-center gap-2 mt-1">
+                                      <div className="flex items-center">
+                                        {[...Array(5)].map((_, i) => (
+                                          <Star
+                                            key={i}
+                                            className={`w-4 h-4 ${
+                                              i < review.rating
+                                                ? 'text-yellow-500 fill-current'
+                                                : 'text-gray-300'
+                                            }`}
+                                          />
+                                        ))}
+                                      </div>
+                                      <span className="text-sm text-gray-500">{review.date}</span>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                                    <MessageCircle className="w-4 h-4" />
+                                    <span>{review.helpful} helpful</span>
+                                  </div>
+                                </div>
+                                <p className="text-gray-700 leading-relaxed mb-3">{review.comment}</p>
+                                {review.images && review.images.length > 0 && (
+                                  <div className="flex gap-2">
+                                    {review.images.map((image, index) => (
+                                      <div key={index} className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                                        <span className="text-xs text-gray-500">📷</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-center py-8">
+                          <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                          <p className="text-gray-500">No reviews yet. Be the first to review this store!</p>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mt-6 pt-6 border-t border-gray-200">
+                      <Button className="w-full bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 text-white">
+                        Write a Review
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </TabsContent>
             

@@ -299,9 +299,23 @@ const CustomerApp = () => {
                       <CardContent className="p-4 text-center">
                         <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">{product.image}</div>
                         <h4 className="font-semibold text-sm mb-2 text-gray-900">{product.name}</h4>
-                        <div className="flex items-center justify-center gap-2 mb-3">
-                          <p className="text-purple-600 font-bold text-lg">₹{product.price}</p>
+                        <div className="flex flex-col items-center gap-1 mb-3">
+                          <div className="flex items-center gap-2">
+                            {product.price < product.salePrice ? (
+                              <>
+                                <p className="text-gray-400 line-through text-sm">₹{product.salePrice}</p>
+                                <p className="text-purple-600 font-bold text-lg">₹{product.price}</p>
+                              </>
+                            ) : (
+                              <p className="text-purple-600 font-bold text-lg">₹{product.price}</p>
+                            )}
+                          </div>
                           <p className="text-gray-500 text-xs">per {product.unit}</p>
+                          {product.price < product.salePrice && (
+                            <Badge variant="secondary" className="text-xs bg-green-100 text-green-700">
+                              ₹{product.salePrice - product.price} off
+                            </Badge>
+                          )}
                         </div>
                         {getItemQuantity(product.id) > 0 ? (
                           <div className="flex items-center justify-center gap-2">
