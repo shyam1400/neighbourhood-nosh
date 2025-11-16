@@ -407,8 +407,29 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  /* Prevent images from overflowing */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Ensure all containers respect viewport width */
+  #root {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
 
@@ -452,5 +473,26 @@ All colors MUST be HSL.
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  /* Prevent content overflow */
+  .overflow-wrap-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  
+  /* Responsive text sizing */
+  .text-responsive {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

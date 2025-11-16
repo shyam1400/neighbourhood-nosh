@@ -147,17 +147,17 @@ const CustomerApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 w-full overflow-x-hidden">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between h-auto sm:h-20 py-3 sm:py-0 gap-3 sm:gap-0">
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={handleBackClick}
-                className="hover:bg-gray-100 w-8 h-8"
+                className="hover:bg-gray-100 w-8 h-8 flex-shrink-0"
               >
                 <ArrowLeft className="w-4 h-4" />
               </Button>
@@ -166,12 +166,12 @@ const CustomerApp = () => {
                 <img 
                   src={logoImage} 
                   alt="Kiro Logo" 
-                  className="w-20 h-20 rounded-xl object-cover shadow-lg"
+                  className="w-12 h-12 sm:w-20 sm:h-20 rounded-xl object-cover shadow-lg"
                 />
               </div>
             </div>
             
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-end">
               <LocationSelector
                 currentLocation={currentLocation}
                 onLocationSelect={setCurrentLocation}
@@ -180,7 +180,7 @@ const CustomerApp = () => {
               
               <NotificationSystem userId="customer_1" userRole="customer" />
               
-                <CartModal />
+              <CartModal />
               
               <UserProfile
                 userType="customer"
@@ -205,13 +205,13 @@ const CustomerApp = () => {
             </p>
             
             {/* Search */}
-            <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="relative max-w-2xl mx-auto w-full px-4">
+              <Search className="absolute left-4 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input 
                 placeholder="Search for products or stores..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-12 bg-white text-gray-900 text-lg rounded-xl border-0 shadow-lg focus:ring-4 focus:ring-white/30"
+                className="pl-12 pr-20 sm:pr-20 h-12 bg-white text-gray-900 text-base sm:text-lg rounded-xl border-0 shadow-lg focus:ring-4 focus:ring-white/30 w-full"
               />
               <Button className="absolute right-2 top-2 h-8 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg">
                 <Filter className="w-4 h-4" />
@@ -221,7 +221,7 @@ const CustomerApp = () => {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 w-full overflow-x-hidden">
         {/* Quick Actions */}
         <section>
           <h3 className="text-2xl font-bold mb-6 text-gray-900">Quick Actions</h3>
@@ -258,19 +258,19 @@ const CustomerApp = () => {
               {/* Categories */}
               <section>
                 <h3 className="text-2xl font-bold mb-6 text-gray-900">Shop by Category</h3>
-                <div className="flex gap-4 overflow-x-auto pb-2">
+                <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
                   {categories.map((category) => (
                     <button
                       key={category.name}
                       onClick={() => setSelectedCategory(category.name)}
-                      className={`flex-shrink-0 flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all duration-300 ${
+                      className={`flex-shrink-0 flex flex-col items-center gap-3 p-3 sm:p-4 rounded-xl border-2 transition-all duration-300 min-w-[80px] sm:min-w-[100px] ${
                         selectedCategory === category.name 
                           ? `bg-gradient-to-br ${getColorClasses(category.color)} text-white border-transparent shadow-lg` 
                           : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <span className="text-2xl">{category.icon}</span>
-                      <span className="text-sm font-medium">{category.name}</span>
+                      <span className="text-xl sm:text-2xl">{category.icon}</span>
+                      <span className="text-xs sm:text-sm font-medium text-center break-words">{category.name}</span>
                     </button>
                   ))}
                 </div>
@@ -418,16 +418,16 @@ const CustomerApp = () => {
                           </div>
                           
                           {/* Store Details */}
-                          <div className="flex-1 p-6">
-                            <div className="flex items-start justify-between mb-3">
-                              <div>
-                                <div className="flex items-center gap-2 mb-1">
-                                  <h4 className="font-bold text-lg text-gray-900">{store.name}</h4>
+                          <div className="flex-1 p-4 sm:p-6 min-w-0">
+                            <div className="flex items-start justify-between mb-3 gap-2">
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                  <h4 className="font-bold text-base sm:text-lg text-gray-900 break-words">{store.name}</h4>
                                   {!store.isOpen && (
-                                    <Badge variant="secondary" className="text-xs">Closed</Badge>
+                                    <Badge variant="secondary" className="text-xs flex-shrink-0">Closed</Badge>
                                   )}
                                 </div>
-                                <p className="text-sm text-gray-600">{store.speciality}</p>
+                                <p className="text-xs sm:text-sm text-gray-600 break-words">{store.speciality}</p>
                               </div>
                               <Button variant="ghost" size="icon" className="text-gray-400 hover:text-purple-500">
                                 <Heart className="w-4 h-4" />

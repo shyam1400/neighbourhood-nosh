@@ -32,25 +32,27 @@ const App = () => (
           <CartProvider>
             <OrderProvider>
               <BrowserRouter future={{ v7_startTransition: true }}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/start-shopping" element={<CustomerLogin />} />
-                <Route path="/customer-login" element={<CustomerLogin />} />
-                <Route path="/vendor-login" element={<VendorLogin />} />
-                <Route path="/delivery-login" element={<DeliveryLogin />} />
-                <Route path="/delivery-signup" element={<DeliverySignup />} />
-                <Route path="/customer" element={<CustomerApp />} />
-                <Route path="/shop/:id" element={<ShopDetail />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
-                <Route path="/order-success" element={<OrderSuccessPage />} />
-                <Route path="/vendor" element={<VendorDashboard />} />
-                <Route path="/delivery" element={<DeliveryDashboard />} />
-                <Route path="/price-prediction" element={<PricePredictionPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <Toaster />
-              <Sonner />
-              <ContextualNotificationSystem />
+                <div className="w-full overflow-x-hidden min-h-screen">
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/start-shopping" element={<CustomerLogin />} />
+                    <Route path="/customer-login" element={<CustomerLogin />} />
+                    <Route path="/vendor-login" element={<VendorLogin />} />
+                    <Route path="/delivery-login" element={<DeliveryLogin />} />
+                    <Route path="/delivery-signup" element={<DeliverySignup />} />
+                    <Route path="/customer" element={<CustomerApp />} />
+                    <Route path="/shop/:id" element={<ShopDetail />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
+                    <Route path="/order-success" element={<OrderSuccessPage />} />
+                    <Route path="/vendor" element={<VendorDashboard />} />
+                    <Route path="/delivery" element={<DeliveryDashboard />} />
+                    <Route path="/price-prediction" element={<PricePredictionPage />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                  <Toaster />
+                  <Sonner />
+                  <ContextualNotificationSystem />
+                </div>
               </BrowserRouter>
             </OrderProvider>
           </CartProvider>

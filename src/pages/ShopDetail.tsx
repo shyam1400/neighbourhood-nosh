@@ -41,30 +41,31 @@ const ShopDetail = () => {
   const products = getProductsByStore(id || '1');
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 w-full overflow-x-hidden">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-between h-auto sm:h-20 py-3 sm:py-0 gap-3 sm:gap-0">
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
               <Link to="/customer">
                 <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900 text-xs">
                   <ArrowLeft className="w-3 h-3 mr-1" />
-                  {t('shopDetail.backToStores')}
+                  <span className="hidden sm:inline">{t('shopDetail.backToStores')}</span>
                 </Button>
               </Link>
               <div className="flex items-center">
                 <img 
                   src={logoImage} 
                   alt="Kiro Logo" 
-                  className="w-20 h-20 rounded-lg object-cover"
+                  className="w-12 h-12 sm:w-20 sm:h-20 rounded-lg object-cover"
                 />
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Button variant="outline" size="sm" className="text-gray-600">
+            <div className="flex items-center space-x-2 flex-wrap justify-end">
+              <Button variant="outline" size="sm" className="text-gray-600 text-xs sm:text-sm">
                 <MapPin className="w-3 h-3 mr-1" />
-                Bangalore, India
+                <span className="hidden sm:inline">Bangalore, India</span>
+                <span className="sm:hidden">Location</span>
               </Button>
               <CartModal />
             </div>
@@ -84,34 +85,34 @@ const ShopDetail = () => {
               />
             </div>
             <div className="lg:w-2/3">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">{store.name}</h1>
-                  <p className="text-gray-600 text-lg">{store.description}</p>
+              <div className="flex items-start justify-between mb-4 gap-2">
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 break-words">{store.name}</h1>
+                  <p className="text-gray-600 text-base sm:text-lg break-words">{store.description}</p>
                 </div>
-                <Button variant="ghost" size="sm" className="text-gray-600">
+                <Button variant="ghost" size="sm" className="text-gray-600 flex-shrink-0">
                   <Heart className="w-5 h-5" />
                 </Button>
               </div>
               
-              <div className="flex items-center space-x-6 mb-6">
+              <div className="flex items-center flex-wrap gap-4 sm:space-x-6 mb-6">
                 <div className="flex items-center">
-                  <Star className="w-5 h-5 text-yellow-500 mr-1" />
-                  <span className="text-lg font-semibold">{store.rating}</span>
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 mr-1" />
+                  <span className="text-base sm:text-lg font-semibold">{store.rating}</span>
                 </div>
                 <div className="flex items-center">
-                  <Clock className="w-5 h-5 text-gray-500 mr-1" />
-                  <span className="text-gray-600">{store.deliveryTime}</span>
+                  <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 mr-1" />
+                  <span className="text-sm sm:text-base text-gray-600">{store.deliveryTime}</span>
                 </div>
                 <div className="flex items-center">
-                  <MapPin className="w-5 h-5 text-gray-500 mr-1" />
-                  <span className="text-gray-600">{store.distance}</span>
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 mr-1" />
+                  <span className="text-sm sm:text-base text-gray-600">{store.distance}</span>
                 </div>
               </div>
 
-              <p className="text-gray-600 mb-4 flex items-start">
+              <p className="text-gray-600 mb-4 flex items-start text-sm sm:text-base break-words">
                 <MapPin className="w-4 h-4 mr-2 mt-1 flex-shrink-0" />
-                {store.address}
+                <span>{store.address}</span>
               </p>
 
               <Badge className={`px-4 py-2 text-lg ${
